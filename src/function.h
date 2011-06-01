@@ -36,13 +36,13 @@ public:
     double getValue(double x) const;
     double getXMax(void) const;
     double getXMin(void) const;
+    void setExpression(const string &expr);
+    void setName(const string &name);
     void setPrecision(double prec);
-    void setStr(const string &str) const;
     void setXMax(double xmax);
     void setXMin(double xmin);
 
 private:
-    string m_expr;
     string m_name;
     FParser *m_parser;
     double m_prec;

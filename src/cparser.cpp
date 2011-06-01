@@ -17,24 +17,21 @@
 
 #include "cparser.h"
 
-CParser::CParser(const string &str, vector<GFunction*> gfunc) :
+CParser::CParser(const string &str, vector<GFunction*> gfunc, bool same) :
     m_expr(string()),
     m_gfunc(gfunc),
     m_name(string()),
+    m_same(same),
     m_str(str),
     m_type(Err)
 {
-    m_keywords.push_back("func");
+    // m_keywords.push_back("func");
     eraseSpaces();
     parse();
 }
 
 CParser::~CParser(void)
 {
-    /*size_t size = m_gfunc.size();
-    for (unsigned short i = 0; i < size; ++i)
-        delete m_gfunc[i];
-    m_gfunc.clear();*/
 }
 
 void CParser::eraseSpaces(void)
@@ -77,13 +74,13 @@ bool CParser::isFuncName(const string &str) const
 {
     unsigned short length = m_gfunc.size();
     for (unsigned short i = 0; i < length; ++i)
-        if (str == m_gfunc[i]->getFuncName())
+        if (str == m_gfunc[i]->getName())
             return true;
 
     return false;
 }
 
-bool CParser::isKeyword(const string &str) const
+/* bool CParser::isKeyword(const string &str) const
 {
     unsigned short length = m_keywords.size();
     for (unsigned short i = 0; i < length; ++i)
@@ -91,16 +88,16 @@ bool CParser::isKeyword(const string &str) const
             return true;
 
     return false;
-}
+} */
 
 void CParser::parse(void)
 {
-    if (m_str.substr(0, 4) == "func") {
+    // if (m_str.substr(0, 4) == "func") {
         if (m_str.length() == 4)
             m_type = Err;
         else {
             m_type = Func;
-            unsigned short i = 4;
+            unsigned short i = 0; // 4;
             unsigned short length = m_str.length();
             string arg;
             bool name = true;
@@ -115,10 +112,17 @@ void CParser::parse(void)
                 else if (!name)
                     arg += m_str.substr(i, 1);
             }
-            if (isKeyword(m_name) || !isAlphabetic(m_name) || isFuncName(m_name) || m_name.empty() || arg != "x")
+            if (m_same) {
+                if (/*isKeyword(m_name) ||*/ !isAlphabetic(m_name) || m_name.empty() || arg != "x") {
+                    m_type = Err;
+                    return;
+                }
+            } else if  (/*isKeyword(m_name) ||*/ !isAlphabetic(m_name) || isFuncName(m_name)
+                        || m_name.empty() || arg != "x") {
                 m_type = Err;
-            else
-                m_expr = m_str.substr(i + 2, length); // + 2 : Skip ")="
+                return;
+            }
+            m_expr = m_str.substr(i + 2, length); // + 2 : Skip ")="
         }
-    }
+    // }
 }

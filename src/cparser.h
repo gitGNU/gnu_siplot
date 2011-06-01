@@ -28,7 +28,7 @@ using namespace std;
 class CParser
 {
 public:
-    CParser(const string &str, vector<GFunction*> gfunc);
+    CParser(const string &str, vector<GFunction*> gfunc, bool same = false);
     ~CParser(void);
 
     const string& getExpression(void) const;
@@ -43,17 +43,18 @@ public:
 
 private:
     string m_expr; // Function expression.
-    vector<string> m_keywords;
+    // vector<string> m_keywords;
     vector<GFunction*> m_gfunc;
     string m_name; // Name of function or variable.
+    bool m_same;
     string m_str;  // Complete input string.
     Type m_type; // Type of command.
-    //double m_val;  // Value of variable.
+    // double m_val;  // Value of variable.
 
     void eraseSpaces(void);
     bool isAlphabetic(const string &str) const;
     bool isFuncName(const string &str) const;
-    bool isKeyword(const string &str) const;
+    // bool isKeyword(const string &str) const;
     void parse(void);
 };
 

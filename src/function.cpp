@@ -18,7 +18,6 @@
 #include "function.h"
 
 Function::Function(const string name, const string &expr) :
-    m_expr(expr),
     m_name(name),
     m_parser(new FParser(expr)),
     m_prec(0),
@@ -34,7 +33,7 @@ Function::~Function(void)
 
 const string& Function::getExpression(void) const
 {
-    return m_expr;
+    return m_parser->getExpression();
 }
 
 const string& Function::getName(void) const
@@ -62,14 +61,19 @@ double Function::getXMin(void) const
     return m_xmin;
 }
 
+void Function::setExpression(const string &expr)
+{
+    m_parser->setExpression(expr);
+}
+
+void Function::setName(const string &name)
+{
+    m_name = name;
+}
+
 void Function::setPrecision(double prec)
 {
     m_prec = prec;
-}
-
-void Function::setStr(const string &str) const
-{
-    m_parser->setExpression(str);
 }
 
 void Function::setXMax(double xmax)

@@ -59,9 +59,14 @@ public:
     QwtPlot* getQwtPlot(void) const;
 
 public slots:
-    void changeCoordinates(int i) const;
-    void changeGrid(int i) const;
     bool plot(GFunction *gfunc);
+    void setAxisOn(bool on) const;
+    void setBGCol(const QColor &col) const;
+    void setCoordMouseOn(bool on) const;
+    void setGridCol(const QColor &col) const;
+    void setGridOn(bool on) const;
+    void setGridStyle(int i) const;
+    void setGridWidth(double width) const;
     void updateBounds(void);
     void updateRatio(void);
 
@@ -73,6 +78,7 @@ protected:
 
 private:
     QwtPlotGrid *m_grid;
+    QPen *m_gridPen;
     QwtPlotMagnifierEx *m_magnifier;
     QwtPlotPanner *m_panner;
     QwtPlotPicker *m_picker;

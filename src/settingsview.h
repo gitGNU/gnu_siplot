@@ -31,10 +31,18 @@ public:
     SettingsView(QWidget *parent = 0);
     ~SettingsView(void);
 
-    QCheckBox* getCoordCheck(void) const;
+    QCheckBox* getAxisCheck(void) const;
+    QPushButton* getBGColButton(void) const;
+    QColorDialog* getColDialog(void) const;
+    QCheckBox* getCoordMouseCheck(void) const;
     QCheckBox* getGridCheck(void) const;
+    QPushButton* getGridColButton(void) const;
+    QComboBox* getGridStyleCombo(void) const;
+    QDoubleSpinBox* getGridWidthSpin(void) const;
+    QToolBox* getToolBox(void) const;
 
 private:
+    QColorDialog *m_colDialog;
     Ui::SettingsView *m_ui;
 };
 

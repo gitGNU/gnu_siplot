@@ -24,6 +24,7 @@ FormulaView::FormulaView(QWidget *parent) :
 {
     m_ui->setupUi(this);
     setWindowTitle(tr("Input"));
+    QTimer::singleShot(0, m_ui->m_formulaEdit, SLOT(setFocus()));
 }
 
 FormulaView::~FormulaView(void)
@@ -43,12 +44,12 @@ bool FormulaView::addFunc(vector<GFunction*> &gfunc) const
     return false;
 }
 
-QPushButton* FormulaView::getPlotButton(void) const
-{
-    return m_ui->m_plotButton;
-}
-
 QLineEdit* FormulaView::getFormEdit(void) const
 {
     return m_ui->m_formulaEdit;
+}
+
+QPushButton* FormulaView::getPlotButton(void) const
+{
+    return m_ui->m_plotButton;
 }

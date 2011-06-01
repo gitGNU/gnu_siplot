@@ -19,8 +19,14 @@
 
 GFunction::GFunction(const string &name, const string &expr) :
     m_curve(new QwtPlotCurve()),
-    m_func(new Function(name, expr))
+    m_func(new Function(name, expr)),
+    m_maxOn(false),
+    m_minOn(false),
+    m_pen(new QPen(Qt::blue)),
+    m_precUser(false),
+    m_show(true)
 {
+    m_curve->setPen(*m_pen);
 }
 
 GFunction::~GFunction(void)
@@ -28,21 +34,58 @@ GFunction::~GFunction(void)
     m_curve->detach();
     delete m_curve;
     delete m_func;
-}
-
-const string& GFunction::getFuncExpression(void) const
-{
-    return m_func->getExpression();
-}
-
-const string& GFunction::getFuncName(void) const
-{
-    return m_func->getName();
+    delete m_pen;
 }
 
 QwtPlotCurve* GFunction::getCurve(void) const
 {
     return m_curve;
+}
+
+const string& GFunction::getExpression(void) const
+{
+    return m_func->getExpression();
+}
+
+bool GFunction::getMaxOn(void) const
+{
+    return m_maxOn;
+}
+
+bool GFunction::getMinOn(void) const
+{
+    return m_minOn;
+}
+
+const string& GFunction::getName(void) const
+{
+    return m_func->getName();
+}
+
+QPen* GFunction::getPen(void) const
+{
+    return m_pen;
+}
+
+bool GFunction::getPrecUser(void) const
+{
+    return m_precUser;
+}
+
+bool GFunction::getShow(void) const
+{
+    return m_show;
+}
+
+void GFunction::setColor(const QColor col) const
+{
+    m_pen->setColor(col);
+    m_curve->setPen(*m_pen);
+}
+
+void GFunction::setExpression(const string &expr) const
+{
+    m_func->setExpression(expr);
 }
 
 bool GFunction::setData(void)
@@ -52,9 +95,9 @@ bool GFunction::setData(void)
     QString errorStr = QString();
 
     double prec = m_func->getPrecision();
-    double max = m_func->getXMax() + 1;
+    double max = m_func->getXMax();
 
-    for (double x = m_func->getXMin() - 1; x <= max; x += prec) {
+    for (double x = m_func->getXMin(); x <= max; x += prec) {
         try {
             double val = m_func->getValue(x);
             if (val == val) { // Otherwise it's "nan".
@@ -75,9 +118,46 @@ bool GFunction::setData(void)
     return true;
 }
 
+void GFunction::setPrecOn(bool on)
+{
+    m_precUser = on;
+}
+
 void GFunction::setPrecision(double prec) const
 {
     m_func->setPrecision(prec);
+}
+
+void GFunction::setMax(bool on)
+{
+    m_maxOn = on;
+}
+
+void GFunction::setMin(bool on)
+{
+    m_minOn = on;
+}
+
+void GFunction::setName(const string &name) const
+{
+    m_func->setName(name);
+}
+
+void GFunction::setShow(bool on)
+{
+    m_show = on;
+}
+
+void GFunction::setStyle(Qt::PenStyle i) const
+{
+    m_pen->setStyle(i);
+    m_curve->setPen(*m_pen);
+}
+
+void GFunction::setWidth(double width) const
+{
+    m_pen->setWidth(width);
+    m_curve->setPen(*m_pen);
 }
 
 void GFunction::setXMax(double xmax) const

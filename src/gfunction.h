@@ -19,6 +19,7 @@
 #define GFUNCTION_H
 
 #include <QMessageBox>
+#include <QPen>
 #include <QString>
 #include <qwt_plot_curve.h>
 
@@ -31,16 +32,35 @@ public:
     ~GFunction(void);
 
     QwtPlotCurve* getCurve(void) const;
-    const string& getFuncExpression(void) const;
-    const string& getFuncName(void) const;
+    const string& getExpression(void) const;
+    bool getMaxOn(void) const;
+    bool getMinOn(void) const;
+    const string& getName(void) const;
+    QPen* getPen(void) const;
+    bool getPrecUser(void) const;
+    bool getShow(void) const;
+    void setColor(const QColor col) const;
     bool setData(void);
+    void setExpression(const string& expr) const;
+    void setMax(bool on);
+    void setMin(bool on);
+    void setName(const string& str) const;
+    void setPrecOn(bool on);
     void setPrecision(double prec) const;
+    void setShow(bool on);
+    void setStyle(Qt::PenStyle i) const;
+    void setWidth(double width) const;
     void setXMax(double xmax) const;
     void setXMin(double xmin) const;
 
 private:
     QwtPlotCurve *m_curve;
     Function *m_func;
+    bool m_maxOn;
+    bool m_minOn;
+    QPen *m_pen;
+    bool m_precUser;
+    bool m_show;
 };
 
 #endif // GFUNCTION_H

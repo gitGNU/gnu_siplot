@@ -37,6 +37,7 @@ void QwtPlotMagnifierEx::doRescale(double factor)
 FuncView::FuncView(QWidget *parent) :
     QWidget(parent),
     m_grid(new QwtPlotGrid()),
+    m_gridPen(new QPen()),
     m_ui(new Ui::FuncView),
     m_xmax(10),
     m_xmin(-10),
@@ -52,12 +53,16 @@ FuncView::FuncView(QWidget *parent) :
 
     updateRatio();
 
+    m_xScaleItem->setTitle("X");
     m_xScaleItem->attach(m_ui->m_qwtPlot);
     m_ui->m_qwtPlot->setAxisScale(QwtPlot::xBottom, m_xmin, m_xmax);
+    m_yScaleItem->setTitle("Y");
     m_yScaleItem->attach(m_ui->m_qwtPlot);
     m_ui->m_qwtPlot->setAxisScale(QwtPlot::yLeft, m_ymin, m_ymax);
 
-    m_grid->setPen(QPen(Qt::gray));
+    m_gridPen->setColor(Qt::gray);
+    m_gridPen->setStyle(Qt::DashLine);
+    m_grid->setPen(*m_gridPen);
     m_grid->attach(m_ui->m_qwtPlot);
 
     m_magnifier = new QwtPlotMagnifierEx(m_ui->m_qwtPlot->canvas());
@@ -75,28 +80,14 @@ FuncView::FuncView(QWidget *parent) :
 
 FuncView::~FuncView(void)
 {
+    delete m_grid;
+    delete m_gridPen;
     delete m_magnifier;
     delete m_panner;
     delete m_picker;
     delete m_ui;
-}
-
-void FuncView::changeCoordinates(int i) const
-{
-    if (i == Qt::Unchecked)
-        m_picker->setTrackerMode(QwtPicker::AlwaysOff);
-    else
-        m_picker->setTrackerMode(QwtPicker::AlwaysOn);
-}
-
-void FuncView::changeGrid(int i) const
-{
-    if (i == Qt::Unchecked)
-        m_grid->detach();
-    else
-        m_grid->attach(m_ui->m_qwtPlot);
-
-    m_ui->m_qwtPlot->replot();
+    delete m_xScaleItem;
+    delete m_yScaleItem;
 }
 
 QwtPlotMagnifierEx* FuncView::getMagnifier(void) const
@@ -116,15 +107,20 @@ QwtPlot* FuncView::getQwtPlot(void) const
 
 bool FuncView::plot(GFunction *gfunc)
 {
-    gfunc->setXMax(m_xmax);
-    gfunc->setXMin(m_xmin);
-    gfunc->setPrecision((abs(m_xmax - m_xmin) + 1) / 400);
+    if (!gfunc->getMaxOn())
+        gfunc->setXMax(m_xmax + 1);
+    if (!gfunc->getMinOn())
+        gfunc->setXMin(m_xmin - 1);
+    if (!gfunc->getPrecUser())
+        gfunc->setPrecision((abs(m_xmax - m_xmin) + 1) / 400);
 
-    if (gfunc->setData()) {
-        gfunc->getCurve()->attach(m_ui->m_qwtPlot);
-        m_ui->m_qwtPlot->replot();
-        return true;
-    }
+    if (gfunc->getShow())
+        if (gfunc->setData()) {
+            gfunc->getCurve()->setRenderHint(QwtPlotItem::RenderAntialiased);
+            gfunc->getCurve()->attach(m_ui->m_qwtPlot);
+            m_ui->m_qwtPlot->replot();
+            return true;
+        }
     return false;
 }
 
@@ -140,6 +136,57 @@ void FuncView::resizeEvent(QResizeEvent *ev)
     plot->axisScaleDiv(QwtPlot::yLeft)->setInterval(m_ymin, m_ymax);
 
     emit resized();
+}
+
+void FuncView::setAxisOn(bool on) const
+{
+    m_xScaleItem->setVisible(on);
+    m_yScaleItem->setVisible(on);
+    m_ui->m_qwtPlot->replot();
+}
+
+void FuncView::setBGCol(const QColor &col) const
+{
+    m_ui->m_qwtPlot->setCanvasBackground(col);
+    m_ui->m_qwtPlot->replot();
+}
+
+void FuncView::setCoordMouseOn(bool on) const
+{
+    if (on)
+        m_picker->setTrackerMode(QwtPicker::AlwaysOn);
+    else
+        m_picker->setTrackerMode(QwtPicker::AlwaysOff);
+}
+
+void FuncView::setGridCol(const QColor &col) const
+{
+    m_gridPen->setColor(col);
+    m_grid->setPen(*m_gridPen);
+    m_ui->m_qwtPlot->replot();
+}
+
+void FuncView::setGridOn(bool on) const
+{
+    if (on)
+        m_grid->setPen(*m_gridPen);
+    else
+        m_grid->setPen(QPen(Qt::NoPen));
+    m_ui->m_qwtPlot->replot();
+}
+
+void FuncView::setGridStyle(int i) const
+{
+    m_gridPen->setStyle((Qt::PenStyle) (i + 1));
+    m_grid->setPen(*m_gridPen);
+    m_ui->m_qwtPlot->replot();
+}
+
+void FuncView::setGridWidth(double width) const
+{
+    m_gridPen->setWidth(width);
+    m_grid->setPen(*m_gridPen);
+    m_ui->m_qwtPlot->replot();
 }
 
 void FuncView::updateBounds(void)

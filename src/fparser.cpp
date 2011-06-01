@@ -33,6 +33,11 @@ void FParser::eraseSpaces(void)
         }
 }
 
+const string& FParser::getExpression(void) const
+{
+    return m_expression;
+}
+
 double FParser::getResult(double val)
 {
     m_actNumber = 0;

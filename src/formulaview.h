@@ -19,6 +19,7 @@
 #define FORMULAVIEW_H
 
 #include <QtGui>
+#include <QTimer>
 #include <string>
 
 #include "cparser.h"
@@ -38,8 +39,8 @@ public:
     ~FormulaView(void);
 
     bool addFunc(vector<GFunction*> &gfunc) const;
-    QPushButton* getPlotButton(void) const;
     QLineEdit* getFormEdit(void) const;
+    QPushButton* getPlotButton(void) const;
 
 private:
     Ui::FormulaView *m_ui;

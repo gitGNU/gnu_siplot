@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     QCoreApplication::setOrganizationName("David Jenni");
     QCoreApplication::setApplicationName("siplot");
-    QCoreApplication::setApplicationVersion("0.03");
+    QCoreApplication::setApplicationVersion("0.04");
 
     MainWindow w;
     w.show();

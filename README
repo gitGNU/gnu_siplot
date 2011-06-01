@@ -8,11 +8,11 @@ ABOUT
 	next versions of siplot.
 
 MANUAL
-	siplot has a integrated manual dialog. You can show it with
+	siplot has an integrated manual dialog. You can show it with
 	Ctrl+M or you can click on Help > Manual in the menu.
 
 REQUIRED SOFTWARE
-	You need following software to run siplot:
+	You need the following software to run siplot:
 	* Qt	GPL v3.0 <http://qt.nokia.com/products/>
 	* Qwt	Qwt License v1.0 <http://qwt.sourceforge.net/>
 

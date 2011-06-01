@@ -29,6 +29,7 @@ class FParser
 public:
     FParser(const string &expr);
 
+    const string& getExpression(void) const;
     double getResult(double val);
     void setExpression(const string &expr);
 

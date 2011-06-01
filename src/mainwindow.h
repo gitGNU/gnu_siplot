@@ -39,13 +39,23 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow(void);
 
-public slots:
+private slots:
     void plot(void);
     void removeFunc(void);
     void replot(void);
-    void showFormulaView(bool on) const;
-    void showFunctionsView(bool on) const;
-    void showSettingsView(bool on) const;
+    void setFuncColor(const QColor &col) const;
+    void setFuncExpression(void) const;
+    void setFuncMaxOn(bool on) const;
+    void setFuncMaxNum(double max) const;
+    void setFuncMinOn(bool on) const;
+    void setFuncMinNum(double max) const;
+    void setFuncPrecOn(bool on) const;
+    void setFuncPrecNum(double max) const;
+    void setFuncProperties(int row) const;
+    void setFuncStyle(int i) const;
+    void setFuncWidth(double width) const;
+    void setSettingsColor(const QColor &col) const;
+    void showFunction(bool on) const;
 
 private:
     QAction *m_aboutAction;

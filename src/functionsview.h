@@ -34,10 +34,25 @@ public:
     ~FunctionsView(void);
 
     void addFunc(GFunction *gfunc) const;
+    QPushButton* getColButton(void) const;
+    QColorDialog* getColDialog(void) const;
     QPushButton* getDelButton(void) const;
+    QLineEdit* getFuncEdit(void) const;
     QListWidget* getFuncList(void) const;
+    QCheckBox* getMaxCheck(void) const;
+    QDoubleSpinBox* getMaxSpin(void) const;
+    QCheckBox* getMinCheck(void) const;
+    QDoubleSpinBox* getMinSpin(void) const;
+    QCheckBox* getPrecCheck(void) const;
+    QDoubleSpinBox* getPrecSpin(void) const;
+    QCheckBox* getShowCheck(void) const;
+    QComboBox* getStyleCombo(void) const;
+    QDoubleSpinBox* getWidthSpin(void) const;
+    void setFuncExpression(GFunction *gfunc) const;
+    void setProperties(GFunction *gfunc);
 
 private:
+    QColorDialog *m_colDialog;
     Ui::FunctionsView *m_ui;
 };
 
