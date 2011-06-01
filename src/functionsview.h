@@ -26,7 +26,8 @@ namespace Ui {
     class FunctionsView;
 }
 
-class FunctionsView : public QDockWidget {
+class FunctionsView : public QDockWidget
+{
     Q_OBJECT
 public:
     FunctionsView(QWidget *parent = 0);

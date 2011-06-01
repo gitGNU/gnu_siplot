@@ -24,7 +24,8 @@ namespace Ui {
     class ManualDialog;
 }
 
-class ManualDialog : public QDialog {
+class ManualDialog : public QDialog
+{
     Q_OBJECT
 public:
     ManualDialog(QWidget *parent = 0);

@@ -34,7 +34,7 @@ FORMS += settingsview.ui \
     manualdialog.ui \
     functionsview.ui
 OBJECTS_DIR = obj$${SUFFIX_STR}
-INCLUDEPATH += /usr/include/qwt/
+INCLUDEPATH += /usr/include/qwt5/
 QWTLIB = qwt$${SUFFIX_STR}
 LIBS += -L$${QWT_ROOT}/lib \
     -l$${QWTLIB}
