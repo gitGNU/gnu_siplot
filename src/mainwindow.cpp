@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     m_aboutAction(new QAction(tr("About"), this)),
     m_formAction(new QAction(tr("Show Input"), this)),
+    m_fullscreenAction(new QAction(tr("Fullscreen"), this)),
     m_funcAction(new QAction(tr("Show Functions"), this)),
     m_manAction(new QAction(tr("Manual"), this)),
     m_quitAction(new QAction(tr("Quit"), this)),
@@ -44,8 +45,9 @@ MainWindow::MainWindow(QWidget *parent) :
     m_functionsview->hide();
     m_settingsview->hide();
 
-    m_aboutAction->setShortcut(tr("Ctrl+B"));
+    m_aboutAction->setShortcut(tr("Ctrl+A"));
     m_formAction->setShortcut(tr("Ctrl+I"));
+    m_fullscreenAction->setShortcut(tr("Ctrl+R"));
     m_funcAction->setShortcut(tr("Ctrl+F"));
     m_manAction->setShortcut(tr("Ctrl+M"));
     m_quitAction->setShortcut(tr("Ctrl+Q"));
@@ -53,6 +55,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_formAction->setCheckable(true);
     m_formAction->setChecked(true);
+    m_fullscreenAction->setCheckable(true);
+    m_fullscreenAction->setChecked(false);
     m_funcAction->setCheckable(true);
     m_funcAction->setChecked(false);
     m_settingsAction->setCheckable(true);
@@ -64,6 +68,8 @@ MainWindow::MainWindow(QWidget *parent) :
     m_viewMenu->addAction(m_formAction);
     m_viewMenu->addAction(m_funcAction);
     m_viewMenu->addAction(m_settingsAction);
+    m_viewMenu->addSeparator();
+    m_viewMenu->addAction(m_fullscreenAction);
     menuBar()->addMenu(m_helpMenu);
     m_helpMenu->addAction(m_manAction);
     m_helpMenu->addAction(m_aboutAction);
@@ -105,6 +111,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_aboutAction, SIGNAL(triggered()), m_aboutDialog, SLOT(exec()));
     connect(m_formAction, SIGNAL(toggled(bool)), m_formview, SLOT(setVisible(bool)));
     connect(m_funcAction, SIGNAL(toggled(bool)), m_functionsview, SLOT(setVisible(bool)));
+    connect(m_fullscreenAction, SIGNAL(triggered(bool)), this, SLOT(setFullscreenOn(bool)));
     connect(m_manAction, SIGNAL(triggered()), m_manDialog, SLOT(exec()));
     connect(m_settingsAction, SIGNAL(toggled(bool)), m_settingsview, SLOT(setVisible(bool)));
 }
@@ -169,6 +176,14 @@ void MainWindow::replot(void)
     unsigned short size = m_gfunc.size();
     for (unsigned short i = 0; i < size; ++i)
         m_funcview->plot(m_gfunc[i]);
+}
+
+void MainWindow::setFullscreenOn(bool on)
+{
+    if (on)
+        showFullScreen();
+    else
+        showNormal();
 }
 
 void MainWindow::setFuncExpression(void) const

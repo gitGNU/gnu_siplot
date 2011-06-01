@@ -43,6 +43,7 @@ private slots:
     void plot(void);
     void removeFunc(void);
     void replot(void);
+    void setFullscreenOn(bool on);
     void setFuncColor(const QColor &col) const;
     void setFuncExpression(void) const;
     void setFuncMaxOn(bool on) const;
@@ -60,6 +61,7 @@ private slots:
 private:
     QAction *m_aboutAction;
     QAction *m_formAction;
+    QAction *m_fullscreenAction;
     QAction *m_funcAction;
     QAction *m_manAction;
     QAction *m_quitAction;
