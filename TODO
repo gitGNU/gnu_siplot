@@ -1,8 +1,8 @@
 These features will be integrated in next versions of siplot:
 
-- Change appearance of graph.
-- Change term and name of function.
-- Set custom precision and plot range.
-- Change appearance of background, grid, and axis.
+- Add icons.
+- Add fullscreen mode.
+- Add cli options.
+- Save settings with QSettings.
 
 If you have some good ideas please send them to <dave.j@gmx.ch>
