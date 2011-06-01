@@ -1,0 +1,33 @@
+ABOUT
+	This is siplot.
+
+	siplot is a simple graph plotter and math tool. It's written in C++
+	and it uses Qt and Qwt. So siplot is based in part of the work of
+	the Qwt <http://qwt.sourceforge.net/> project.
+	There is a list of features (see file TODO), which will be integrated in 
+	next versions of siplot.
+
+MANUAL
+	siplot has a integrated manual dialog. You can show it with
+	Ctrl+M or you can click on Help > Manual in the menu.
+
+REQUIRED SOFTWARE
+	You need following software to run siplot:
+	* Qt	GPL v3.0 <http://qt.nokia.com/products/>
+	* Qwt	Qwt License v1.0 <http://qwt.sourceforge.net/>
+
+LICENSE
+	Copyright (C) 2010 - 2011 David Jenni <dave.j@gmx.ch>
+
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
