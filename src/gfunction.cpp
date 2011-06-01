@@ -154,7 +154,7 @@ void GFunction::setStyle(Qt::PenStyle i) const
     m_curve->setPen(*m_pen);
 }
 
-void GFunction::setWidth(double width) const
+void GFunction::setWidth(int width) const
 {
     m_pen->setWidth(width);
     m_curve->setPen(*m_pen);

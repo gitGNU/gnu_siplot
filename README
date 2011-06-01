@@ -2,7 +2,7 @@ ABOUT
 	This is siplot.
 
 	siplot is a simple graph plotter and math tool. It's written in C++
-	and it uses Qt and Qwt. So siplot is based in part of the work of
+	and it uses Qt and Qwt. So siplot is based in part on the work of
 	the Qwt <http://qwt.sourceforge.net/> project.
 	There is a list of features (see file TODO), which will be integrated in 
 	next versions of siplot.

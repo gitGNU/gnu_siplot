@@ -138,7 +138,7 @@ void FuncView::resizeEvent(QResizeEvent *ev)
     emit resized();
 }
 
-void FuncView::setAxisOn(bool on) const
+void FuncView::setAxesOn(bool on) const
 {
     m_xScaleItem->setVisible(on);
     m_yScaleItem->setVisible(on);
@@ -182,7 +182,7 @@ void FuncView::setGridStyle(int i) const
     m_ui->m_qwtPlot->replot();
 }
 
-void FuncView::setGridWidth(double width) const
+void FuncView::setGridWidth(int width) const
 {
     m_gridPen->setWidth(width);
     m_grid->setPen(*m_gridPen);

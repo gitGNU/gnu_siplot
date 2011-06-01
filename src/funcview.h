@@ -60,13 +60,13 @@ public:
 
 public slots:
     bool plot(GFunction *gfunc);
-    void setAxisOn(bool on) const;
+    void setAxesOn(bool on) const;
     void setBGCol(const QColor &col) const;
     void setCoordMouseOn(bool on) const;
     void setGridCol(const QColor &col) const;
     void setGridOn(bool on) const;
     void setGridStyle(int i) const;
-    void setGridWidth(double width) const;
+    void setGridWidth(int width) const;
     void updateBounds(void);
     void updateRatio(void);
 

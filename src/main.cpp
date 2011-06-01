@@ -30,3 +30,4 @@ int main(int argc, char *argv[])
     w.show();
     return app.exec();
 }
+////////////////////////////////////////                      qspinbox anstatt qdoublespinbox bei width

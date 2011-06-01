@@ -46,8 +46,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>447</width>
-         <height>124</height>
+         <width>464</width>
+         <height>164</height>
         </rect>
        </property>
        <attribute name="label">
@@ -101,16 +101,6 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="QDoubleSpinBox" name="m_gridWidthSpin">
-             <property name="minimum">
-              <double>1.000000000000000</double>
-             </property>
-             <property name="maximum">
-              <double>1000.000000000000000</double>
-             </property>
-            </widget>
-           </item>
            <item row="2" column="0">
             <widget class="QLabel" name="label_9">
              <property name="text">
@@ -161,6 +151,19 @@
              </item>
             </widget>
            </item>
+           <item row="3" column="1">
+            <widget class="QSpinBox" name="m_gridWidthSpin">
+             <property name="suffix">
+              <string> px</string>
+             </property>
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>1000</number>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
@@ -185,11 +188,11 @@
          <x>0</x>
          <y>0</y>
          <width>464</width>
-         <height>258</height>
+         <height>120</height>
         </rect>
        </property>
        <attribute name="label">
-        <string>Axis</string>
+        <string>Axes</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout" rowstretch="0,0">
         <property name="horizontalSpacing">
@@ -204,7 +207,7 @@
         <item row="0" column="0">
          <widget class="QCheckBox" name="m_axisCheck">
           <property name="text">
-           <string>Show Axis</string>
+           <string>Show Axes</string>
           </property>
           <property name="checked">
            <bool>true</bool>
@@ -277,7 +280,7 @@
          <x>0</x>
          <y>0</y>
          <width>464</width>
-         <height>144</height>
+         <height>120</height>
         </rect>
        </property>
        <attribute name="label">

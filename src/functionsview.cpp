@@ -123,7 +123,7 @@ QComboBox* FunctionsView::getStyleCombo(void) const
     return m_ui->m_styleCombo;
 }
 
-QDoubleSpinBox* FunctionsView::getWidthSpin(void) const
+QSpinBox* FunctionsView::getWidthSpin(void) const
 {
     return m_ui->m_widthSpin;
 }

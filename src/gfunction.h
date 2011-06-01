@@ -49,7 +49,7 @@ public:
     void setPrecision(double prec) const;
     void setShow(bool on);
     void setStyle(Qt::PenStyle i) const;
-    void setWidth(double width) const;
+    void setWidth(int width) const;
     void setXMax(double xmax) const;
     void setXMin(double xmin) const;
 

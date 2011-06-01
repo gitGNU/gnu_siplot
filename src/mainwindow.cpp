@@ -85,7 +85,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_functionsview->getPrecSpin(), SIGNAL(valueChanged(double)), this, SLOT(setFuncPrecNum(double)));
     connect(m_functionsview->getShowCheck(), SIGNAL(clicked(bool)), this, SLOT(showFunction(bool)));
     connect(m_functionsview->getStyleCombo(), SIGNAL(currentIndexChanged(int)), this, SLOT(setFuncStyle(int)));
-    connect(m_functionsview->getWidthSpin(), SIGNAL(valueChanged(double)), this, SLOT(setFuncWidth(double)));
+    connect(m_functionsview->getWidthSpin(), SIGNAL(valueChanged(int)), this, SLOT(setFuncWidth(int)));
 
     // FuncView.
     connect(m_funcview, SIGNAL(resized()), this, SLOT(replot()));
@@ -93,12 +93,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_funcview->getPanner(), SIGNAL(panned(int, int)), this, SLOT(replot()));
 
     // SettingsView.
-    connect(m_settingsview->getAxisCheck(), SIGNAL(clicked(bool)), m_funcview, SLOT(setAxisOn(bool)));
+    connect(m_settingsview->getAxesCheck(), SIGNAL(clicked(bool)), m_funcview, SLOT(setAxesOn(bool)));
     connect(m_settingsview->getColDialog(), SIGNAL(colorSelected(const QColor&)), this, SLOT(setSettingsColor(const QColor&)));
     connect(m_settingsview->getCoordMouseCheck(), SIGNAL(clicked(bool)), m_funcview, SLOT(setCoordMouseOn(bool)));
     connect(m_settingsview->getGridCheck(), SIGNAL(clicked(bool)), m_funcview, SLOT(setGridOn(bool)));
     connect(m_settingsview->getGridStyleCombo(), SIGNAL(currentIndexChanged(int)), m_funcview, SLOT(setGridStyle(int)));
-    connect(m_settingsview->getGridWidthSpin(), SIGNAL(valueChanged(double)), m_funcview, SLOT(setGridWidth(double)));
+    connect(m_settingsview->getGridWidthSpin(), SIGNAL(valueChanged(int)), m_funcview, SLOT(setGridWidth(int)));
 
     // Actions.
     connect(m_quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
@@ -311,7 +311,7 @@ void MainWindow::setFuncStyle(int i) const
     }
 }
 
-void MainWindow::setFuncWidth(double width) const
+void MainWindow::setFuncWidth(int width) const
 {
     QListWidget *list = m_functionsview->getFuncList();
     if (list->count() > 0) {

@@ -53,7 +53,7 @@ private slots:
     void setFuncPrecNum(double max) const;
     void setFuncProperties(int row) const;
     void setFuncStyle(int i) const;
-    void setFuncWidth(double width) const;
+    void setFuncWidth(int width) const;
     void setSettingsColor(const QColor &col) const;
     void showFunction(bool on) const;
 

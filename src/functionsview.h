@@ -47,7 +47,7 @@ public:
     QDoubleSpinBox* getPrecSpin(void) const;
     QCheckBox* getShowCheck(void) const;
     QComboBox* getStyleCombo(void) const;
-    QDoubleSpinBox* getWidthSpin(void) const;
+    QSpinBox* getWidthSpin(void) const;
     void setFuncExpression(GFunction *gfunc) const;
     void setProperties(GFunction *gfunc);
 

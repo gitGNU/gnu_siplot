@@ -42,7 +42,7 @@ SettingsView::~SettingsView(void)
     delete m_ui;
 }
 
-QCheckBox* SettingsView::getAxisCheck(void) const
+QCheckBox* SettingsView::getAxesCheck(void) const
 {
     return m_ui->m_axisCheck;
 }
@@ -77,7 +77,7 @@ QComboBox* SettingsView::getGridStyleCombo(void) const
     return m_ui->m_gridStyleCombo;
 }
 
-QDoubleSpinBox* SettingsView::getGridWidthSpin(void) const
+QSpinBox* SettingsView::getGridWidthSpin(void) const
 {
     return m_ui->m_gridWidthSpin;
 }
