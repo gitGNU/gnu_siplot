@@ -190,7 +190,7 @@ void MainWindow::setFuncExpression(void) const
 {
     QListWidget *list = m_functionsview->getFuncList();
     if (list->count() > 0) {
-        CParser *cpar = new CParser("func" + m_functionsview->getFuncEdit()->text().toStdString(), m_gfunc, true);
+        CParser *cpar = new CParser(m_functionsview->getFuncEdit()->text().toStdString(), m_gfunc, true);
 
         if (cpar->getType() == CParser::Func) {
             GFunction *gfunc = m_gfunc[list->currentRow()];
