@@ -26,6 +26,7 @@ FunctionsView::FunctionsView(QWidget *parent) :
     m_ui->setupUi(this);
     setWindowTitle("Functions");
 
+    m_ui->m_delButton->setIcon(QIcon(QCoreApplication::applicationDirPath() + "/icons/edit-delete.png"));
     m_ui->m_toolBox->setCurrentIndex(0);
     m_ui->m_toolBox->hide();
 

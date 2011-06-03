@@ -17,6 +17,7 @@ REQUIRED SOFTWARE
 	* Qwt	Qwt License v1.0 <http://qwt.sourceforge.net/>
 
 LICENSE
+	For the application see file LICENSE.
 	Copyright (C) 2010 - 2011 David Jenni <dave.j@gmx.ch>
 
 	This program is free software: you can redistribute it and/or modify
@@ -31,3 +32,7 @@ LICENSE
 
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+ICONS
+	For the icons see file icons/LICENSE.ICONS
+	All icons, execpt siplot.png, are from Oxygen. <http://www.oxygen-icons.org/>

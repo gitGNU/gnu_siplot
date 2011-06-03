@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     m_aboutAction(new QAction(tr("About"), this)),
     m_formAction(new QAction(tr("Show Input"), this)),
-    m_fullscreenAction(new QAction(tr("Fullscreen"), this)),
+    m_fullscreenAction(new QAction(tr("Full Screen Mode"), this)),
     m_funcAction(new QAction(tr("Show Functions"), this)),
     m_manAction(new QAction(tr("Manual"), this)),
     m_quitAction(new QAction(tr("Quit"), this)),
@@ -38,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     resize(1060, 1100);
     setCentralWidget(m_funcview);
+    setWindowIcon(QIcon(QString(QCoreApplication::applicationDirPath() + "/icons/siplot.png")));
 
     addDockWidget(Qt::BottomDockWidgetArea, m_formview);
     addDockWidget(Qt::RightDockWidgetArea, m_functionsview);
@@ -46,11 +47,15 @@ MainWindow::MainWindow(QWidget *parent) :
     m_settingsview->hide();
 
     m_aboutAction->setShortcut(tr("Ctrl+A"));
+    m_aboutAction->setIcon(QIcon(QCoreApplication::applicationDirPath() + "/icons/help-about.png"));
     m_formAction->setShortcut(tr("Ctrl+I"));
     m_fullscreenAction->setShortcut(tr("Ctrl+R"));
+    m_fullscreenAction->setIcon(QIcon(QCoreApplication::applicationDirPath() + "/icons/view-fullscreen.png"));
     m_funcAction->setShortcut(tr("Ctrl+F"));
     m_manAction->setShortcut(tr("Ctrl+M"));
+    m_manAction->setIcon(QIcon(QCoreApplication::applicationDirPath() + "/icons/help-contents.png"));
     m_quitAction->setShortcut(tr("Ctrl+Q"));
+    m_quitAction->setIcon(QIcon(QCoreApplication::applicationDirPath() + "/icons/application-exit.png"));
     m_settingsAction->setShortcut(tr("Ctrl+S"));
 
     m_formAction->setCheckable(true);

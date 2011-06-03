@@ -24,6 +24,9 @@ ManualDialog::ManualDialog(QWidget *parent) :
 {
     m_ui->setupUi(this);
     setWindowTitle(tr("Manual"));
+    setWindowIcon(QIcon(QCoreApplication::applicationDirPath() + "/icons/help-contents.png"));
+
+    m_ui->m_closeButton->setIcon(QIcon(QString(QCoreApplication::applicationDirPath() + "/icons/window-close.png")));
 
     connect(m_ui->m_closeButton, SIGNAL(clicked()), this, SLOT(close()));
 }

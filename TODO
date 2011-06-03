@@ -1,7 +1,5 @@
 These features will be integrated in next versions of siplot:
 
-- Add icons.
-- Add fullscreen mode.
 - Add cli options.
 - Save settings with QSettings.
 

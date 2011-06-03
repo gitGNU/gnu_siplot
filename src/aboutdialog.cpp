@@ -23,11 +23,14 @@ AboutDialog::AboutDialog(QWidget *parent) :
     m_ui(new Ui::AboutDialog)
 {
     m_ui->setupUi(this);
+    setWindowTitle(tr("About"));
+    setWindowIcon(QIcon(QCoreApplication::applicationDirPath() + "/icons/help-about.png"));
+
     m_ui->m_aboutLabel->setOpenExternalLinks(true);
     m_ui->m_titleLabel->setText(QString(tr("<b>About %1 Version %2</b>")).arg(QCoreApplication::applicationName())
                                                                          .arg(QCoreApplication::applicationVersion()));
-
-    setWindowTitle(tr("About"));
+    m_ui->m_iconLabel->setPixmap(QPixmap(QString(QCoreApplication::applicationDirPath() + "/icons/siplot.png")));
+    m_ui->m_closeButton->setIcon(QIcon(QString(QCoreApplication::applicationDirPath() + "/icons/window-close.png")));
 
     connect(m_ui->m_closeButton, SIGNAL(clicked()), this, SLOT(close()));
 }
