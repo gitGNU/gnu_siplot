@@ -1,6 +1,8 @@
 These features will be integrated in next versions of siplot:
 
-- Add cli options.
 - Save settings with QSettings.
+- Add a proper error handling and a syntax check in the parser.
+- Add something like "Show Derivative Function".
+- Add more options to customize axes.
 
 If you have some good ideas please send them to <dave.j@gmx.ch>
