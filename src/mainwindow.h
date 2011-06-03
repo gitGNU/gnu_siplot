@@ -36,13 +36,13 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public:
-    MainWindow(QWidget *parent = 0);
+    MainWindow(QWidget *parent = 0, QString *initFunc = 0);
     ~MainWindow(void);
 
 private slots:
     void plot(void);
     void removeFunc(void);
-    void replot(void);
+    void replotFunctions(void);
     void setFullscreenOn(bool on);
     void setFuncColor(const QColor &col) const;
     void setFuncExpression(void) const;

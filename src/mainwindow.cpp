@@ -17,7 +17,7 @@
 
 #include "mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent) :     
+MainWindow::MainWindow(QWidget *parent, QString *initFunc) :
     QMainWindow(parent),
     m_aboutAction(new QAction(tr("About"), this)),
     m_formAction(new QAction(tr("Show Input"), this)),
@@ -99,9 +99,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_functionsview->getWidthSpin(), SIGNAL(valueChanged(int)), this, SLOT(setFuncWidth(int)));
 
     // FuncView.
-    connect(m_funcview, SIGNAL(resized()), this, SLOT(replot()));
-    connect(m_funcview->getMagnifier(), SIGNAL(rescaleEvent()), this, SLOT(replot()));
-    connect(m_funcview->getPanner(), SIGNAL(panned(int, int)), this, SLOT(replot()));
+    connect(m_funcview, SIGNAL(resized()), this, SLOT(replotFunctions()));
+    connect(m_funcview->getMagnifier(), SIGNAL(rescaleEvent()), this, SLOT(replotFunctions()));
+    connect(m_funcview->getPanner(), SIGNAL(panned(int, int)), this, SLOT(replotFunctions()));
 
     // SettingsView.
     connect(m_settingsview->getAxesCheck(), SIGNAL(clicked(bool)), m_funcview, SLOT(setAxesOn(bool)));
@@ -119,6 +119,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_fullscreenAction, SIGNAL(triggered(bool)), this, SLOT(setFullscreenOn(bool)));
     connect(m_manAction, SIGNAL(triggered()), m_manDialog, SLOT(exec()));
     connect(m_settingsAction, SIGNAL(toggled(bool)), m_settingsview, SLOT(setVisible(bool)));
+
+    if (initFunc) {
+        m_formview->getFormEdit()->setText(*initFunc);
+        plot();
+    }
 }
 
 MainWindow::~MainWindow(void)
@@ -176,7 +181,7 @@ void MainWindow::removeFunc(void)
     }
 }
 
-void MainWindow::replot(void)
+void MainWindow::replotFunctions(void)
 {
     unsigned short size = m_gfunc.size();
     for (unsigned short i = 0; i < size; ++i)
