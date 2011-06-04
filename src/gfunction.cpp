@@ -23,7 +23,7 @@ GFunction::GFunction(const string &name, const string &expr) :
     m_maxOn(false),
     m_minOn(false),
     m_pen(new QPen(Qt::blue)),
-    m_precUser(false),
+    m_precNum(false),
     m_show(true)
 {
     m_curve->setPen(*m_pen);
@@ -47,9 +47,19 @@ const string& GFunction::getExpression(void) const
     return m_func->getExpression();
 }
 
+double GFunction::getMaxNum(void) const
+{
+    return m_func->getMaxNum();
+}
+
 bool GFunction::getMaxOn(void) const
 {
     return m_maxOn;
+}
+
+double GFunction::getMinNum(void) const
+{
+    return m_func->getMinNum();
 }
 
 bool GFunction::getMinOn(void) const
@@ -67,9 +77,14 @@ QPen* GFunction::getPen(void) const
     return m_pen;
 }
 
-bool GFunction::getPrecUser(void) const
+double GFunction::getPrecNum(void) const
 {
-    return m_precUser;
+    return m_func->getPrecision();
+}
+
+bool GFunction::getPrecOn(void) const
+{
+    return m_precNum;
 }
 
 bool GFunction::getShow(void) const
@@ -95,9 +110,9 @@ bool GFunction::setData(void)
     QString errorStr = QString();
 
     double prec = m_func->getPrecision();
-    double max = m_func->getXMax();
+    double max = m_func->getMaxNum();
 
-    for (double x = m_func->getXMin(); x <= max; x += prec) {
+    for (double x = m_func->getMinNum(); x <= max; x += prec) {
         try {
             double val = m_func->getValue(x);
             if (val == val) { // Otherwise it's "nan".
@@ -118,22 +133,32 @@ bool GFunction::setData(void)
     return true;
 }
 
-void GFunction::setPrecOn(bool on)
-{
-    m_precUser = on;
-}
-
-void GFunction::setPrecision(double prec) const
+void GFunction::setPrecNum(double prec) const
 {
     m_func->setPrecision(prec);
 }
 
-void GFunction::setMax(bool on)
+void GFunction::setPrecOn(bool on)
+{
+    m_precNum = on;
+}
+
+void GFunction::setMaxNum(double xmax) const
+{
+    m_func->setMaxNum(xmax);
+}
+
+void GFunction::setMaxOn(bool on)
 {
     m_maxOn = on;
 }
 
-void GFunction::setMin(bool on)
+void GFunction::setNumMin(double xmin) const
+{
+    m_func->setMinNum(xmin);
+}
+
+void GFunction::setMinOn(bool on)
 {
     m_minOn = on;
 }
@@ -158,14 +183,4 @@ void GFunction::setWidth(int width) const
 {
     m_pen->setWidth(width);
     m_curve->setPen(*m_pen);
-}
-
-void GFunction::setXMax(double xmax) const
-{
-    m_func->setXMax(xmax);
-}
-
-void GFunction::setXMin(double xmin) const
-{
-    m_func->setXMin(xmin);
 }

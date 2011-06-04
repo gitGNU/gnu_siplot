@@ -31,23 +31,23 @@ public:
     ~Function(void);
 
     const string& getExpression(void) const;
+    double getMaxNum(void) const;
+    double getMinNum(void) const;
     const string& getName(void) const;
     double getPrecision(void) const;
     double getValue(double x) const;
-    double getXMax(void) const;
-    double getXMin(void) const;
     void setExpression(const string &expr);
+    void setMaxNum(double xmax);
+    void setMinNum(double xmin);
     void setName(const string &name);
     void setPrecision(double prec);
-    void setXMax(double xmax);
-    void setXMin(double xmin);
 
 private:
+    double m_maxNum;
+    double m_minNum;
     string m_name;
     FParser *m_parser;
     double m_prec;
-    double m_xmax;
-    double m_xmin;
 };
 
 #endif // FUNCTION_H

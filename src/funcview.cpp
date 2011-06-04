@@ -108,11 +108,11 @@ QwtPlot* FuncView::getQwtPlot(void) const
 bool FuncView::plot(GFunction *gfunc)
 {
     if (!gfunc->getMaxOn())
-        gfunc->setXMax(m_xmax + 1);
+        gfunc->setMaxNum(m_xmax + 1);
     if (!gfunc->getMinOn())
-        gfunc->setXMin(m_xmin - 1);
-    if (!gfunc->getPrecUser())
-        gfunc->setPrecision((abs(m_xmax - m_xmin) + 1) / 400);
+        gfunc->setNumMin(m_xmin - 1);
+    if (!gfunc->getPrecOn())
+        gfunc->setPrecNum((abs(m_xmax - m_xmin) + 1) / 400);
 
     if (gfunc->getShow())
         if (gfunc->setData()) {

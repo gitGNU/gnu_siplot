@@ -145,16 +145,30 @@ void FunctionsView::setProperties(GFunction *gfunc)
     if (gfunc != 0) {
         m_ui->m_toolBox->show();
 
-        m_ui->m_colButton->setPalette(QPalette(gfunc->getPen()->color()));
+        QPen *pen = gfunc->getPen();
+        m_ui->m_colButton->setPalette(QPalette(pen->color()));
+        m_ui->m_widthSpin->setValue(pen->width());
         m_ui->m_showCheck->setChecked(gfunc->getShow());
         m_ui->m_funcEdit->setText(QString::fromStdString(gfunc->getName() + "(x) = " + gfunc->getExpression()));
-        m_ui->m_precCheck->setChecked(gfunc->getPrecUser());
-        m_ui->m_precSpin->setEnabled(gfunc->getPrecUser());
-        m_ui->m_maxCheck->setChecked(gfunc->getMaxOn());
-        m_ui->m_maxSpin->setEnabled(gfunc->getMaxOn());
-        m_ui->m_minCheck->setChecked(gfunc->getMinOn());
-        m_ui->m_minSpin->setEnabled(gfunc->getMinOn());
-        m_ui->m_widthSpin->setValue(gfunc->getPen()->width());
+        m_ui->m_styleCombo->setCurrentIndex((int) (pen->style() - 1));
+
+        bool precOn = gfunc->getPrecOn();
+        m_ui->m_precSpin->setEnabled(precOn);
+        m_ui->m_precCheck->setChecked(precOn);
+        if (precOn)
+            m_ui->m_precSpin->setValue(gfunc->getPrecNum());
+
+        bool maxOn = gfunc->getMaxOn();
+        m_ui->m_maxSpin->setEnabled(maxOn);
+        m_ui->m_maxCheck->setChecked(maxOn);
+        if (maxOn)
+            m_ui->m_maxSpin->setValue(gfunc->getMaxNum());
+
+        bool minOn = gfunc->getMinOn();
+        m_ui->m_minSpin->setEnabled(minOn);
+        m_ui->m_minCheck->setChecked(minOn);
+        if (minOn)
+            m_ui->m_minSpin->setValue(gfunc->getMinNum());
     } else {
         m_ui->m_toolBox->show();
         this->hide();

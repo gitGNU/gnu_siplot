@@ -239,10 +239,10 @@ void MainWindow::setFuncMaxOn(bool on) const
     QListWidget *list = m_functionsview->getFuncList();
     if (list->count() > 0) {
         GFunction *gfunc = m_gfunc[list->currentRow()];
-        gfunc->setMax(on);
+        gfunc->setMaxOn(on);
 
         if (on) {
-            gfunc->setXMax(m_functionsview->getMaxSpin()->value());
+            gfunc->setMaxNum(m_functionsview->getMaxSpin()->value());
             m_funcview->plot(gfunc);
         } else
             m_funcview->plot(gfunc);
@@ -255,7 +255,7 @@ void MainWindow::setFuncMaxNum(double max) const
     QListWidget *list = m_functionsview->getFuncList();
     if (list->count() > 0) {
         GFunction *gfunc = m_gfunc[list->currentRow()];
-        gfunc->setXMax(max);
+        gfunc->setMaxNum(max);
         m_funcview->plot(gfunc);
         m_funcview->getQwtPlot()->replot();
     }
@@ -266,10 +266,10 @@ void MainWindow::setFuncMinOn(bool on) const
     QListWidget *list = m_functionsview->getFuncList();
     if (list->count() > 0) {
         GFunction *gfunc = m_gfunc[list->currentRow()];
-        gfunc->setMin(on);
+        gfunc->setMinOn(on);
 
         if (on) {
-            gfunc->setXMin(m_functionsview->getMinSpin()->value());
+            gfunc->setNumMin(m_functionsview->getMinSpin()->value());
             m_funcview->plot(gfunc);
         } else
             m_funcview->plot(gfunc);
@@ -282,7 +282,7 @@ void MainWindow::setFuncMinNum(double min) const
     QListWidget *list = m_functionsview->getFuncList();
     if (list->count() > 0) {
         GFunction *gfunc = m_gfunc[list->currentRow()];
-        gfunc->setXMin(min);
+        gfunc->setNumMin(min);
         m_funcview->plot(gfunc);
         m_funcview->getQwtPlot()->replot();
     }
@@ -296,7 +296,7 @@ void MainWindow::setFuncPrecOn(bool on) const
         gfunc->setPrecOn(on);
 
         if (on) {
-            gfunc->setPrecision(m_functionsview->getPrecSpin()->value());
+            gfunc->setPrecNum(m_functionsview->getPrecSpin()->value());
             m_funcview->plot(gfunc);
         } else
             m_funcview->plot(gfunc);
@@ -309,7 +309,7 @@ void MainWindow::setFuncPrecNum(double prec) const
     QListWidget *list = m_functionsview->getFuncList();
     if (list->count() > 0) {
         GFunction *gfunc = m_gfunc[list->currentRow()];
-        gfunc->setPrecision(prec);
+        gfunc->setPrecNum(prec);
         m_funcview->plot(gfunc);
         m_funcview->getQwtPlot()->replot();
     }

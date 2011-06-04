@@ -33,25 +33,28 @@ public:
 
     QwtPlotCurve* getCurve(void) const;
     const string& getExpression(void) const;
+    double getMaxNum(void) const;
+    double getMinNum(void) const;
     bool getMaxOn(void) const;
     bool getMinOn(void) const;
     const string& getName(void) const;
     QPen* getPen(void) const;
-    bool getPrecUser(void) const;
+    double getPrecNum(void) const;
+    bool getPrecOn(void) const;
     bool getShow(void) const;
     void setColor(const QColor col) const;
     bool setData(void);
     void setExpression(const string& expr) const;
-    void setMax(bool on);
-    void setMin(bool on);
+    void setMaxNum(double xmax) const;
+    void setNumMin(double xmin) const;
+    void setMaxOn(bool on);
+    void setMinOn(bool on);
     void setName(const string& str) const;
+    void setPrecNum(double prec) const;
     void setPrecOn(bool on);
-    void setPrecision(double prec) const;
     void setShow(bool on);
     void setStyle(Qt::PenStyle i) const;
     void setWidth(int width) const;
-    void setXMax(double xmax) const;
-    void setXMin(double xmin) const;
 
 private:
     QwtPlotCurve *m_curve;
@@ -59,7 +62,7 @@ private:
     bool m_maxOn;
     bool m_minOn;
     QPen *m_pen;
-    bool m_precUser;
+    bool m_precNum;
     bool m_show;
 };
 
