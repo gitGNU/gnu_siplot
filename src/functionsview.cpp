@@ -139,9 +139,12 @@ void FunctionsView::setFuncExpression(GFunction *gfunc) const
 
 void FunctionsView::setProperties(GFunction *gfunc)
 {
-    if (m_ui->m_funcList->count() == 1)
-        this->show();
-
+    // First time: show this widget.
+    if (m_ui->m_funcList->count() == 1) {
+        show();
+        m_ui->m_toolBox->hide();
+    }
+    // Normal function switch.
     if (gfunc != 0) {
         m_ui->m_toolBox->show();
 
@@ -169,8 +172,10 @@ void FunctionsView::setProperties(GFunction *gfunc)
         m_ui->m_minCheck->setChecked(minOn);
         if (minOn)
             m_ui->m_minSpin->setValue(gfunc->getMinNum());
-    } else {
-        m_ui->m_toolBox->show();
-        this->hide();
+    }
+    // All Functions deleted: hide this widget.
+    else {
+        m_ui->m_toolBox->hide();
+        hide();
     }
 }

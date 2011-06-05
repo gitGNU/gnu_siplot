@@ -36,6 +36,16 @@ const string& Function::getExpression(void) const
     return m_parser->getExpression();
 }
 
+double Function::getMaxNum(void) const
+{
+    return m_maxNum;
+}
+
+double Function::getMinNum(void) const
+{
+    return m_minNum;
+}
+
 const string& Function::getName(void) const
 {
     return m_name;
@@ -51,19 +61,19 @@ double Function::getValue(double x) const
     return m_parser->getResult(x);
 }
 
-double Function::getMaxNum(void) const
-{
-    return m_maxNum;
-}
-
-double Function::getMinNum(void) const
-{
-    return m_minNum;
-}
-
 void Function::setExpression(const string &expr)
 {
     m_parser->setExpression(expr);
+}
+
+void Function::setMaxNum(double max)
+{
+    m_maxNum = max;
+}
+
+void Function::setMinNum(double min)
+{
+    m_minNum = min;
 }
 
 void Function::setName(const string &name)
@@ -74,14 +84,4 @@ void Function::setName(const string &name)
 void Function::setPrecision(double prec)
 {
     m_prec = prec;
-}
-
-void Function::setMaxNum(double xmax)
-{
-    m_maxNum = xmax;
-}
-
-void Function::setMinNum(double xmin)
-{
-    m_minNum = xmin;
 }

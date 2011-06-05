@@ -143,9 +143,9 @@ void GFunction::setPrecOn(bool on)
     m_precNum = on;
 }
 
-void GFunction::setMaxNum(double xmax) const
+void GFunction::setMaxNum(double max) const
 {
-    m_func->setMaxNum(xmax);
+    m_func->setMaxNum(max);
 }
 
 void GFunction::setMaxOn(bool on)
@@ -153,9 +153,9 @@ void GFunction::setMaxOn(bool on)
     m_maxOn = on;
 }
 
-void GFunction::setNumMin(double xmin) const
+void GFunction::setNumMin(double min) const
 {
-    m_func->setMinNum(xmin);
+    m_func->setMinNum(min);
 }
 
 void GFunction::setMinOn(bool on)

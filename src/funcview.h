@@ -21,9 +21,11 @@
 #include <QtGui>
 #include <qwt_plot_grid.h>
 #include <qwt_plot_magnifier.h>
+#include <qwt_plot_marker.h>
 #include <qwt_plot_picker.h>
 #include <qwt_plot_panner.h>
 #include <qwt_plot_scaleitem.h>
+#include <qwt_symbol.h>
 
 #include "gfunction.h"
 
@@ -47,6 +49,21 @@ public slots:
     void doRescale(double factor);
 };
 
+class Axis : public QwtPlotMarker
+{
+public:
+    Axis(QwtPlotMarker::LineStyle style, double x, double y, QString str);
+    ~Axis(void);
+
+    void setSymbol(bool on);
+    void setLabel(bool on);
+    void setLabel(QString str);
+
+private:
+    QString m_label;
+    QwtSymbol *m_symbol;
+};
+
 class FuncView : public QWidget
 {
     Q_OBJECT
@@ -60,15 +77,24 @@ public:
 
 public slots:
     bool plot(GFunction *gfunc);
-    void setAxesOn(bool on) const;
     void setBGCol(const QColor &col) const;
     void setCoordMouseOn(bool on) const;
     void setGridCol(const QColor &col) const;
     void setGridOn(bool on) const;
     void setGridStyle(int i) const;
     void setGridWidth(int width) const;
+    void setHorArrowOn(bool on) const;
+    void setHorAxisOn(bool on) const;
+    void setHorLabel(const QString &str) const;
+    void setHorLabelOn(bool on) const;
+    void updateAxes(void) const;
     void updateBounds(void);
     void updateRatio(void);
+    void setVerArrowOn(bool on) const;
+    void setVerAxisOn(bool on) const;
+    void setVerLabel(const QString &str) const;
+    void setVerLabelOn(bool on) const;
+
 
 signals:
     void resized(void);
@@ -84,9 +110,11 @@ private:
     QwtPlotPicker *m_picker;
     double m_ratio;
     Ui::FuncView *m_ui;
+    Axis *m_xAxis;
     double m_xmax;
     double m_xmin;
     QwtPlotScaleItem *m_xScaleItem;
+    Axis *m_yAxis;
     double m_ymax;
     double m_ymin;
     QwtPlotScaleItem *m_yScaleItem;

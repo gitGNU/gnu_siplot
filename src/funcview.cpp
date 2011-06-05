@@ -34,14 +34,72 @@ void QwtPlotMagnifierEx::doRescale(double factor)
     QwtPlotMagnifier::rescale(factor);
 }
 
+Axis::Axis(QwtPlotMarker::LineStyle style, double x, double y, QString str) :
+    m_label(str)
+{
+    setLineStyle(style);
+
+    if (style == QwtPlotMarker::HLine) {
+        m_symbol = new QwtSymbol(QwtSymbol::RTriangle, QBrush(Qt::SolidPattern), QPen(Qt::black), QSize(10, 10));
+        setLabel(m_label);
+        setLabelAlignment(Qt::AlignRight);
+    } else {
+        m_symbol = new QwtSymbol(QwtSymbol::Triangle, QBrush(Qt::SolidPattern), QPen(Qt::black), QSize(10, 10));
+        setLabel(m_label);
+        setLabelAlignment(Qt::AlignTop);
+    }
+
+    QwtPlotMarker::setSymbol(*m_symbol);
+
+    setXValue(x);
+    setYValue(y);
+}
+
+Axis::~Axis(void)
+{
+    delete m_symbol;
+}
+
+void Axis::setSymbol(bool on)
+{
+    if (on)
+        QwtPlotMarker::setSymbol(*m_symbol);
+    else
+        QwtPlotMarker::setSymbol(QwtSymbol());
+}
+
+void Axis::setLabel(bool on)
+{
+    if (on)
+        setLabel(m_label);
+    else
+        QwtPlotMarker::setLabel(QString());
+}
+
+void Axis::setLabel(QString str)
+{
+    m_label = str;
+    if (lineStyle() == QwtPlotMarker::HLine) {
+        str.insert(0, "\n\n\n\n\n");
+        str += "\t\t\t\t";
+    } else if (lineStyle() == QwtPlotMarker::VLine) {
+        str.insert(0, "\n");
+        str += "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
+    }
+
+    QwtPlotMarker::setLabel(QwtText(str));
+}
+
 FuncView::FuncView(QWidget *parent) :
     QWidget(parent),
     m_grid(new QwtPlotGrid()),
     m_gridPen(new QPen()),
     m_ui(new Ui::FuncView),
+    m_xAxis(new Axis(QwtPlotMarker::HLine, 10, 0, "X")),
     m_xmax(10),
     m_xmin(-10),
     m_xScaleItem(new QwtPlotScaleItem(QwtScaleDraw::BottomScale, 0.0)),
+    m_yAxis(new Axis(QwtPlotMarker::VLine, 0, 10, "Y")),
     m_ymax(10),
     m_ymin(-10),
     m_yScaleItem(new QwtPlotScaleItem(QwtScaleDraw::LeftScale, 0.0))
@@ -52,6 +110,9 @@ FuncView::FuncView(QWidget *parent) :
     m_ui->m_qwtPlot->enableAxis(QwtPlot::xBottom, false);
 
     updateRatio();
+
+    m_xAxis->attach(m_ui->m_qwtPlot);
+    m_yAxis->attach(m_ui->m_qwtPlot);
 
     m_xScaleItem->setTitle("X");
     m_xScaleItem->attach(m_ui->m_qwtPlot);
@@ -138,13 +199,6 @@ void FuncView::resizeEvent(QResizeEvent *ev)
     emit resized();
 }
 
-void FuncView::setAxesOn(bool on) const
-{
-    m_xScaleItem->setVisible(on);
-    m_yScaleItem->setVisible(on);
-    m_ui->m_qwtPlot->replot();
-}
-
 void FuncView::setBGCol(const QColor &col) const
 {
     m_ui->m_qwtPlot->setCanvasBackground(col);
@@ -189,6 +243,39 @@ void FuncView::setGridWidth(int width) const
     m_ui->m_qwtPlot->replot();
 }
 
+void FuncView::setHorArrowOn(bool on) const
+{
+    m_xAxis->setSymbol(on);
+    m_ui->m_qwtPlot->replot();
+}
+
+void FuncView::setHorAxisOn(bool on) const
+{
+    m_xAxis->setVisible(on);
+    m_xScaleItem->setVisible(on);
+    m_ui->m_qwtPlot->replot();
+}
+
+void FuncView::setHorLabel(const QString &str) const
+{
+    m_xAxis->setLabel(str);
+    m_ui->m_qwtPlot->replot();
+}
+
+void FuncView::setHorLabelOn(bool on) const
+{
+    m_xAxis->setLabel(on);
+    m_ui->m_qwtPlot->replot();
+}
+
+void FuncView::updateAxes(void) const
+{
+    m_xAxis->setXValue(m_xmax);
+    m_yAxis->setYValue(m_ymax);
+
+    m_ui->m_qwtPlot->replot();
+}
+
 void FuncView::updateBounds(void)
 {
     QwtPlot *plot = m_ui->m_qwtPlot;
@@ -200,9 +287,36 @@ void FuncView::updateBounds(void)
 
     m_ymax = yScale->upperBound();
     m_ymin = yScale->lowerBound();
+
+    updateAxes();
 }
 
 void FuncView::updateRatio(void)
 {
     m_ratio = size().width() / abs(m_xmax - m_xmin);
+}
+
+void FuncView::setVerArrowOn(bool on) const
+{
+    m_yAxis->setSymbol(on);
+    m_ui->m_qwtPlot->replot();
+}
+
+void FuncView::setVerAxisOn(bool on) const
+{
+    m_yScaleItem->setVisible(on);
+    m_yAxis->setVisible(on);
+    m_ui->m_qwtPlot->replot();
+}
+
+void FuncView::setVerLabel(const QString &str) const
+{
+    m_yAxis->setLabel(str);
+    m_ui->m_qwtPlot->replot();
+}
+
+void FuncView::setVerLabelOn(bool on) const
+{
+    m_yAxis->setLabel(on);
+    m_ui->m_qwtPlot->replot();
 }

@@ -37,8 +37,8 @@ public:
     double getPrecision(void) const;
     double getValue(double x) const;
     void setExpression(const string &expr);
-    void setMaxNum(double xmax);
-    void setMinNum(double xmin);
+    void setMaxNum(double max);
+    void setMinNum(double min);
     void setName(const string &name);
     void setPrecision(double prec);
 

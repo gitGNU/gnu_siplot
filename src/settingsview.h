@@ -31,7 +31,6 @@ public:
     SettingsView(QWidget *parent = 0);
     ~SettingsView(void);
 
-    QCheckBox* getAxesCheck(void) const;
     QPushButton* getBGColButton(void) const;
     QColorDialog* getColDialog(void) const;
     QCheckBox* getCoordMouseCheck(void) const;
@@ -39,7 +38,15 @@ public:
     QPushButton* getGridColButton(void) const;
     QComboBox* getGridStyleCombo(void) const;
     QSpinBox* getGridWidthSpin(void) const;
+    QCheckBox* getHorArrowCheck(void) const;
+    QGroupBox* getHorGroup(void) const;
+    QCheckBox* getHorLabelCheck(void) const;
+    QLineEdit* getHorLabelEdit(void) const;
     QToolBox* getToolBox(void) const;
+    QCheckBox* getVerArrowCheck(void) const;
+    QGroupBox* getVerGroup(void) const;
+    QCheckBox* getVerLabelCheck(void) const;
+    QLineEdit* getVerLabelEdit(void) const;
 
 private:
     QColorDialog *m_colDialog;

@@ -104,12 +104,20 @@ MainWindow::MainWindow(QWidget *parent, QString *initFunc) :
     connect(m_funcview->getPanner(), SIGNAL(panned(int, int)), this, SLOT(replotFunctions()));
 
     // SettingsView.
-    connect(m_settingsview->getAxesCheck(), SIGNAL(clicked(bool)), m_funcview, SLOT(setAxesOn(bool)));
     connect(m_settingsview->getColDialog(), SIGNAL(colorSelected(const QColor&)), this, SLOT(setSettingsColor(const QColor&)));
     connect(m_settingsview->getCoordMouseCheck(), SIGNAL(clicked(bool)), m_funcview, SLOT(setCoordMouseOn(bool)));
     connect(m_settingsview->getGridCheck(), SIGNAL(clicked(bool)), m_funcview, SLOT(setGridOn(bool)));
     connect(m_settingsview->getGridStyleCombo(), SIGNAL(currentIndexChanged(int)), m_funcview, SLOT(setGridStyle(int)));
     connect(m_settingsview->getGridWidthSpin(), SIGNAL(valueChanged(int)), m_funcview, SLOT(setGridWidth(int)));
+
+    connect(m_settingsview->getHorArrowCheck(), SIGNAL(clicked(bool)), m_funcview, SLOT(setHorArrowOn(bool)));
+    connect(m_settingsview->getHorGroup(), SIGNAL(clicked(bool)), m_funcview, SLOT(setHorAxisOn(bool)));
+    connect(m_settingsview->getHorLabelCheck(), SIGNAL(clicked(bool)), m_funcview, SLOT(setHorLabelOn(bool)));
+    connect(m_settingsview->getHorLabelEdit(), SIGNAL(textChanged(const QString&)), m_funcview, SLOT(setHorLabel(const QString&)));
+    connect(m_settingsview->getVerArrowCheck(), SIGNAL(clicked(bool)), m_funcview, SLOT(setVerArrowOn(bool)));
+    connect(m_settingsview->getVerGroup(), SIGNAL(clicked(bool)), m_funcview, SLOT(setVerAxisOn(bool)));
+    connect(m_settingsview->getVerLabelCheck(), SIGNAL(clicked(bool)), m_funcview, SLOT(setVerLabelOn(bool)));
+    connect(m_settingsview->getVerLabelEdit(), SIGNAL(textChanged(const QString&)), m_funcview, SLOT(setVerLabel(const QString&)));
 
     // Actions.
     connect(m_quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));

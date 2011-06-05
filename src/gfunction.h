@@ -45,8 +45,8 @@ public:
     void setColor(const QColor col) const;
     bool setData(void);
     void setExpression(const string& expr) const;
-    void setMaxNum(double xmax) const;
-    void setNumMin(double xmin) const;
+    void setMaxNum(double max) const;
+    void setNumMin(double min) const;
     void setMaxOn(bool on);
     void setMinOn(bool on);
     void setName(const string& str) const;

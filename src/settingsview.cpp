@@ -34,17 +34,16 @@ SettingsView::SettingsView(QWidget *parent) :
     connect(m_ui->m_bgColButton, SIGNAL(clicked()), m_colDialog, SLOT(exec()));
     connect(m_ui->m_gridCheck, SIGNAL(clicked(bool)), m_ui->m_gridFrame, SLOT(setVisible(bool)));
     connect(m_ui->m_gridColButton, SIGNAL(clicked()), m_colDialog, SLOT(exec()));
+    connect(m_ui->m_horGroup, SIGNAL(clicked(bool)), m_ui->m_horFrame, SLOT(setVisible(bool)));
+    connect(m_ui->m_horLabelCheck, SIGNAL(clicked(bool)), m_ui->m_horLabelEdit, SLOT(setEnabled(bool)));
+    connect(m_ui->m_verGroup, SIGNAL(clicked(bool)), m_ui->m_verFrame, SLOT(setVisible(bool)));
+    connect(m_ui->m_verLabelCheck, SIGNAL(clicked(bool)), m_ui->m_verLabelEdit, SLOT(setEnabled(bool)));
 }
 
 SettingsView::~SettingsView(void)
 {
     delete m_colDialog;
     delete m_ui;
-}
-
-QCheckBox* SettingsView::getAxesCheck(void) const
-{
-    return m_ui->m_axisCheck;
 }
 
 QPushButton* SettingsView::getBGColButton(void) const
@@ -82,7 +81,47 @@ QSpinBox* SettingsView::getGridWidthSpin(void) const
     return m_ui->m_gridWidthSpin;
 }
 
+QCheckBox* SettingsView::getHorArrowCheck(void) const
+{
+    return m_ui->m_horArrowCheck;
+}
+
+QGroupBox* SettingsView::getHorGroup(void) const
+{
+    return m_ui->m_horGroup;
+}
+
+QCheckBox* SettingsView::getHorLabelCheck(void) const
+{
+    return m_ui->m_horLabelCheck;
+}
+
+QLineEdit* SettingsView::getHorLabelEdit(void) const
+{
+    return m_ui->m_horLabelEdit;
+}
+
 QToolBox* SettingsView::getToolBox(void) const
 {
     return m_ui->m_toolBox;
+}
+
+QCheckBox* SettingsView::getVerArrowCheck(void) const
+{
+    return m_ui->m_verArrowCheck;
+}
+
+QGroupBox* SettingsView::getVerGroup(void) const
+{
+    return m_ui->m_verGroup;
+}
+
+QCheckBox* SettingsView::getVerLabelCheck(void) const
+{
+    return m_ui->m_verLabelCheck;
+}
+
+QLineEdit* SettingsView::getVerLabelEdit(void) const
+{
+    return m_ui->m_verLabelEdit;
 }
