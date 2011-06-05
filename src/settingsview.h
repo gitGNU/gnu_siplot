@@ -31,6 +31,7 @@ public:
     SettingsView(QWidget *parent = 0);
     ~SettingsView(void);
 
+    void initSettings(QSettings *settings);
     QPushButton* getBGColButton(void) const;
     QColorDialog* getColDialog(void) const;
     QCheckBox* getCoordMouseCheck(void) const;
@@ -47,6 +48,7 @@ public:
     QGroupBox* getVerGroup(void) const;
     QCheckBox* getVerLabelCheck(void) const;
     QLineEdit* getVerLabelEdit(void) const;
+    void saveSettings(QSettings *settings);
 
 private:
     QColorDialog *m_colDialog;

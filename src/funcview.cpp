@@ -151,6 +151,44 @@ FuncView::~FuncView(void)
     delete m_yScaleItem;
 }
 
+void FuncView::initSettings(QSettings *settings)
+{
+    settings->beginGroup("Settings");
+
+    setBGCol(settings->value("BGColor", Qt::white).toString());
+    setCoordMouseOn(settings->value("CoordinatesMouseOn", true).toBool());
+
+    bool gridOn = settings->value("GridOn", true).toBool();
+    setGridOn(gridOn);
+    if (gridOn) {
+        setGridCol(settings->value("GridColor", Qt::gray).toString());
+        setGridStyle(settings->value("GridStyle", 2).toInt());
+        setGridWidth(settings->value("GridWidth", 1).toInt());
+    }
+
+    bool horAxisOn = settings->value("HorAxisOn", true).toBool();
+    setHorAxisOn(horAxisOn);
+    if (horAxisOn) {
+        setHorArrowOn(settings->value("HorArrowOn", true).toBool());
+        bool horLabelOn = settings->value("HorLabelOn", true).toBool();
+        setHorLabelOn(horLabelOn);
+        if (horLabelOn)
+            setHorLabel(settings->value("HorLabel", "X").toString());
+    }
+
+    bool verAxisOn = settings->value("VerAxisOn", true).toBool();
+    setVerAxisOn(verAxisOn);
+    if (verAxisOn) {
+        setVerArrowOn(settings->value("VerArrowOn", true).toBool());
+        bool verLabelOn = settings->value("VerLabelOn", true).toBool();
+        setVerLabelOn(verLabelOn);
+        if (verLabelOn)
+            setVerLabel(settings->value("VerLabel", "Y").toString());
+    }
+
+    settings->endGroup();
+}
+
 QwtPlotMagnifierEx* FuncView::getMagnifier(void) const
 {
     return m_magnifier;

@@ -26,11 +26,6 @@ SettingsView::SettingsView(QWidget *parent) :
     m_ui->setupUi(this);
     setWindowTitle(tr("Settings"));
 
-    m_ui->m_gridStyleCombo->setCurrentIndex(1);
-
-    m_ui->m_gridColButton->setPalette(QPalette(Qt::gray));
-    m_ui->m_bgColButton->setPalette(QPalette(Qt::white));
-
     connect(m_ui->m_bgColButton, SIGNAL(clicked()), m_colDialog, SLOT(exec()));
     connect(m_ui->m_gridCheck, SIGNAL(clicked(bool)), m_ui->m_gridFrame, SLOT(setVisible(bool)));
     connect(m_ui->m_gridColButton, SIGNAL(clicked()), m_colDialog, SLOT(exec()));
@@ -44,6 +39,49 @@ SettingsView::~SettingsView(void)
 {
     delete m_colDialog;
     delete m_ui;
+}
+
+void SettingsView::initSettings(QSettings *settings)
+{
+    settings->beginGroup("Settings");
+
+    m_ui->m_toolBox->setCurrentIndex(settings->value("CurrentPage", 0).toInt());
+
+    // Grid.
+    bool gridOn = settings->value("GridOn", true).toBool();
+    m_ui->m_gridCheck->setChecked(gridOn);
+    m_ui->m_gridFrame->setVisible(gridOn);
+    m_ui->m_gridStyleCombo->setCurrentIndex(settings->value("GridStyle", 1).toInt());
+    m_ui->m_gridWidthSpin->setValue(settings->value("GridWidth", 1).toDouble());
+    m_ui->m_gridColButton->setPalette(QPalette((settings->value("GridColor", Qt::gray).toString())));
+
+
+    // Axes
+    bool horAxisOn = settings->value("HorAxisOn", true).toBool();
+    m_ui->m_horGroup->setChecked(horAxisOn);
+    m_ui->m_horFrame->setVisible(horAxisOn);
+    m_ui->m_horArrowCheck->setChecked(settings->value("HorArrowOn", true).toBool());
+    bool horLabelOn = settings->value("HorLabelOn", true).toBool();
+    m_ui->m_horLabelCheck->setChecked(horLabelOn);
+    m_ui->m_horLabelEdit->setEnabled(horLabelOn);
+    m_ui->m_horLabelEdit->setText(settings->value("HorLabel", "X").toString());
+
+    bool verAxisOn = settings->value("VerAxisOn", true).toBool();
+    m_ui->m_verGroup->setChecked(verAxisOn);
+    m_ui->m_verFrame->setVisible(verAxisOn);
+    m_ui->m_verArrowCheck->setChecked(settings->value("VerArrowOn", true).toBool());
+    bool verLabelOn = settings->value("VerLabelOn", true).toBool();
+    m_ui->m_verLabelCheck->setChecked(verLabelOn);
+    m_ui->m_verLabelEdit->setEnabled(verLabelOn);
+    m_ui->m_verLabelEdit->setText(settings->value("VerLabel", "Y").toString());
+
+    // Background.
+    m_ui->m_bgColButton->setPalette(QPalette((settings->value("BGColor", Qt::white).toString())));
+
+    // Coordinates.
+    m_ui->m_coordMouseCheck->setChecked(settings->value("CoordinatesMouseOn", true).toBool());
+
+    settings->endGroup();
 }
 
 QPushButton* SettingsView::getBGColButton(void) const
@@ -124,4 +162,37 @@ QCheckBox* SettingsView::getVerLabelCheck(void) const
 QLineEdit* SettingsView::getVerLabelEdit(void) const
 {
     return m_ui->m_verLabelEdit;
+}
+
+void SettingsView::saveSettings(QSettings *settings)
+{
+    settings->beginGroup("Settings");
+
+    settings->setValue("IsOn", isVisible());
+    settings->setValue("CurrentPage", m_ui->m_toolBox->currentIndex());
+
+    // Grid.
+    settings->setValue("GridOn", m_ui->m_gridCheck->isChecked());
+    settings->setValue("GridStyle", m_ui->m_gridStyleCombo->currentIndex());
+    settings->setValue("GridColor", m_ui->m_gridColButton->palette().color(QPalette::Background).name());
+    settings->setValue("GridWidth", m_ui->m_gridWidthSpin->value());
+
+    // Axes.
+    settings->setValue("HorAxisOn", m_ui->m_horGroup->isChecked());
+    settings->setValue("HorArrowOn", m_ui->m_horArrowCheck->isChecked());
+    settings->setValue("HorLabelOn", m_ui->m_horLabelCheck->isChecked());
+    settings->setValue("HorLabel", m_ui->m_horLabelEdit->text());
+
+    settings->setValue("VerAxisOn", m_ui->m_verGroup->isChecked());
+    settings->setValue("VerArrowOn", m_ui->m_verArrowCheck->isChecked());
+    settings->setValue("VerLabelOn", m_ui->m_verLabelCheck->isChecked());
+    settings->setValue("VerLabel", m_ui->m_verLabelEdit->text());
+
+    // Background.
+    settings->setValue("BGColor", m_ui->m_bgColButton->palette().color(QPalette::Background).name());
+
+    // Coordinates.
+    settings->setValue("CoordinatesMouseOn", m_ui->m_coordMouseCheck->isChecked());
+
+    settings->endGroup();
 }

@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent, QString *initFunc) :
     m_fileMenu(new QMenu(tr("File"), this)),
     m_helpMenu(new QMenu(tr("Help"), this)),
     m_viewMenu(new QMenu(tr("View"), this)),
+    m_settings(new QSettings("David Jenni", QCoreApplication::applicationName())),
     m_aboutDialog(new AboutDialog()),
     m_manDialog(new ManualDialog()),
     m_funcview(new FuncView()),
@@ -36,15 +37,15 @@ MainWindow::MainWindow(QWidget *parent, QString *initFunc) :
     m_formview(new FormulaView()),
     m_settingsview(new SettingsView())
 {
-    resize(1060, 1100);
     setCentralWidget(m_funcview);
     setWindowIcon(QIcon(QString(QCoreApplication::applicationDirPath() + "/icons/siplot.png")));
 
     addDockWidget(Qt::BottomDockWidgetArea, m_formview);
     addDockWidget(Qt::RightDockWidgetArea, m_functionsview);
     addDockWidget(Qt::LeftDockWidgetArea, m_settingsview);
-    m_functionsview->hide();
     m_settingsview->hide();
+    m_functionsview->hide();
+    m_formview->hide();
 
     m_aboutAction->setShortcut(tr("Ctrl+A"));
     m_aboutAction->setIcon(QIcon(QCoreApplication::applicationDirPath() + "/icons/help-about.png"));
@@ -59,13 +60,11 @@ MainWindow::MainWindow(QWidget *parent, QString *initFunc) :
     m_settingsAction->setShortcut(tr("Ctrl+S"));
 
     m_formAction->setCheckable(true);
-    m_formAction->setChecked(true);
     m_fullscreenAction->setCheckable(true);
     m_fullscreenAction->setChecked(false);
     m_funcAction->setCheckable(true);
     m_funcAction->setChecked(false);
     m_settingsAction->setCheckable(true);
-    m_settingsAction->setChecked(false);
 
     menuBar()->addMenu(m_fileMenu);
     m_fileMenu->addAction(m_quitAction);
@@ -132,6 +131,8 @@ MainWindow::MainWindow(QWidget *parent, QString *initFunc) :
         m_formview->getFormEdit()->setText(*initFunc);
         plot();
     }
+
+    initSettings();
 }
 
 MainWindow::~MainWindow(void)
@@ -155,6 +156,38 @@ MainWindow::~MainWindow(void)
     delete m_funcview;
     delete m_formview;
     delete m_settingsview;
+    delete m_settings;
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    m_settings->beginGroup("MainWindow");
+    m_settings->setValue("Size", size());
+    m_settings->setValue("FormViewOn", m_formAction->isChecked());
+    m_settings->endGroup();
+
+    m_settingsview->saveSettings(m_settings);
+    event->accept();
+}
+
+void MainWindow::initSettings(void)
+{
+    m_settings->beginGroup("MainWindow");
+    resize(m_settings->value("Size", QSize(1060, 1100)).toSize());
+
+    bool formViewOn = m_settings->value("FormViewOn", true).toBool();
+    m_formAction->setChecked(formViewOn);
+    m_formview->setVisible(formViewOn);
+    m_settings->endGroup();
+
+    m_settings->beginGroup("Settings");
+    bool settingsviewOn = m_settings->value("IsOn", false).toBool();
+    m_settingsAction->setChecked(settingsviewOn);
+    m_settingsview->setVisible(settingsviewOn);
+    m_settings->endGroup();
+
+    m_settingsview->initSettings(m_settings);
+    m_funcview->initSettings(m_settings);
 }
 
 void MainWindow::plot(void)

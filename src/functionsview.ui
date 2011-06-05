@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>249</width>
-    <height>418</height>
+    <width>201</width>
+    <height>391</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>201</width>
+    <height>391</height>
+   </size>
   </property>
   <property name="features">
    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
@@ -49,7 +55,7 @@
        <number>0</number>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="tabSpacing">
        <number>0</number>
@@ -59,8 +65,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>233</width>
-         <height>94</height>
+         <width>185</width>
+         <height>72</height>
         </rect>
        </property>
        <attribute name="label">
@@ -100,8 +106,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>233</width>
-         <height>94</height>
+         <width>185</width>
+         <height>72</height>
         </rect>
        </property>
        <attribute name="label">
@@ -195,7 +201,7 @@
          <x>0</x>
          <y>0</y>
          <width>185</width>
-         <height>46</height>
+         <height>72</height>
         </rect>
        </property>
        <attribute name="label">
@@ -252,8 +258,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>150</width>
-         <height>23</height>
+         <width>185</width>
+         <height>72</height>
         </rect>
        </property>
        <attribute name="label">

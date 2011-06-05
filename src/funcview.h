@@ -71,6 +71,7 @@ public:
     FuncView(QWidget *parent = 0);
     ~FuncView(void);
 
+    void initSettings(QSettings *settings);
     QwtPlotMagnifierEx* getMagnifier(void) const;
     QwtPlotPanner* getPanner(void) const;
     QwtPlot* getQwtPlot(void) const;

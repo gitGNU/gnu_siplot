@@ -40,6 +40,7 @@ public:
     ~MainWindow(void);
 
 private slots:
+    void closeEvent(QCloseEvent *event);
     void plot(void);
     void removeFunc(void);
     void replotFunctions(void);
@@ -71,6 +72,8 @@ private:
     QMenu *m_helpMenu;
     QMenu *m_viewMenu;
 
+    QSettings *m_settings;
+
     AboutDialog *m_aboutDialog;
     ManualDialog *m_manDialog;
 
@@ -80,6 +83,8 @@ private:
     SettingsView *m_settingsview;
 
     vector<GFunction*> m_gfunc;
+
+    void initSettings(void);
 };
 
 #endif // MAINWINDOW_H
