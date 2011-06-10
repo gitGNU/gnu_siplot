@@ -41,10 +41,15 @@ public:
 
 private slots:
     void closeEvent(QCloseEvent *event);
+
     void plot(void);
+
     void removeFunc(void);
+
     void replotFunctions(void);
+
     void setFullscreenOn(bool on);
+
     void setFuncColor(const QColor &col) const;
     void setFuncExpression(void) const;
     void setFuncMaxOn(bool on) const;
@@ -56,7 +61,9 @@ private slots:
     void setFuncProperties(int row) const;
     void setFuncStyle(int i) const;
     void setFuncWidth(int width) const;
+
     void setSettingsColor(const QColor &col) const;
+
     void showFunction(bool on) const;
 
 private:
@@ -84,6 +91,9 @@ private:
 
     vector<GFunction*> m_gfunc;
 
+    void initActions(void);
+    void initConnects(void);
+    void initMenus(void);
     void initSettings(void);
 };
 

@@ -39,6 +39,7 @@ public:
     ~FormulaView(void);
 
     bool addFunc(vector<GFunction*> &gfunc) const;
+
     QLineEdit* getFormEdit(void) const;
     QPushButton* getPlotButton(void) const;
 

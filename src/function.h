@@ -31,16 +31,21 @@ public:
     ~Function(void);
 
     const string& getExpression(void) const;
-    double getMaxNum(void) const;
-    double getMinNum(void) const;
-    const string& getName(void) const;
-    double getPrecision(void) const;
-    double getValue(double x) const;
     void setExpression(const string &expr);
+
+    double getMaxNum(void) const;
     void setMaxNum(double max);
+
+    double getMinNum(void) const;
     void setMinNum(double min);
+
+    const string& getName(void) const;
     void setName(const string &name);
+
+    double getPrecision(void) const;
     void setPrecision(double prec);
+
+    double getValue(double x) const;
 
 private:
     double m_maxNum;

@@ -47,6 +47,54 @@ MainWindow::MainWindow(QWidget *parent, QString *initFunc) :
     m_functionsview->hide();
     m_formview->hide();
 
+    initActions();
+    initMenus();
+    initConnects();
+
+    if (initFunc) {
+        m_formview->getFormEdit()->setText(*initFunc);
+        plot();
+    }
+
+    initSettings();
+}
+
+MainWindow::~MainWindow(void)
+{
+    size_t size = m_gfunc.size();
+    for (unsigned short i = 0; i < size; ++i)
+        delete m_gfunc[i];
+    m_gfunc.clear();
+
+    delete m_aboutAction;
+    delete m_formAction;
+    delete m_fullscreenAction;
+    delete m_funcAction;
+    delete m_manAction;
+    delete m_quitAction;
+    delete m_settingsAction;
+    delete m_fileMenu;
+    delete m_helpMenu;
+    delete m_viewMenu;
+    delete m_settings;
+    delete m_aboutDialog;
+    delete m_manDialog;
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    m_settings->beginGroup("MainWindow");
+    m_settings->setValue("Size", size());
+    m_settings->setValue("FormViewOn", m_formAction->isChecked());
+    m_settings->endGroup();
+
+    m_settingsview->saveSettings(m_settings);
+
+    event->accept();
+}
+
+void MainWindow::initActions(void)
+{
     m_aboutAction->setShortcut(tr("Ctrl+A"));
     m_aboutAction->setIcon(QIcon(QCoreApplication::applicationDirPath() + "/icons/help-about.png"));
     m_formAction->setShortcut(tr("Ctrl+I"));
@@ -65,19 +113,10 @@ MainWindow::MainWindow(QWidget *parent, QString *initFunc) :
     m_funcAction->setCheckable(true);
     m_funcAction->setChecked(false);
     m_settingsAction->setCheckable(true);
+}
 
-    menuBar()->addMenu(m_fileMenu);
-    m_fileMenu->addAction(m_quitAction);
-    menuBar()->addMenu(m_viewMenu);
-    m_viewMenu->addAction(m_formAction);
-    m_viewMenu->addAction(m_funcAction);
-    m_viewMenu->addAction(m_settingsAction);
-    m_viewMenu->addSeparator();
-    m_viewMenu->addAction(m_fullscreenAction);
-    menuBar()->addMenu(m_helpMenu);
-    m_helpMenu->addAction(m_manAction);
-    m_helpMenu->addAction(m_aboutAction);
-
+void MainWindow::initConnects(void)
+{
     // FormulaView.
     connect(m_formview->getPlotButton(), SIGNAL(clicked()), this, SLOT(plot()));
     connect(m_formview->getFormEdit(), SIGNAL(returnPressed()), this, SLOT(plot()));
@@ -109,14 +148,28 @@ MainWindow::MainWindow(QWidget *parent, QString *initFunc) :
     connect(m_settingsview->getGridStyleCombo(), SIGNAL(currentIndexChanged(int)), m_funcview, SLOT(setGridStyle(int)));
     connect(m_settingsview->getGridWidthSpin(), SIGNAL(valueChanged(int)), m_funcview, SLOT(setGridWidth(int)));
 
-    connect(m_settingsview->getHorArrowCheck(), SIGNAL(clicked(bool)), m_funcview, SLOT(setHorArrowOn(bool)));
-    connect(m_settingsview->getHorGroup(), SIGNAL(clicked(bool)), m_funcview, SLOT(setHorAxisOn(bool)));
-    connect(m_settingsview->getHorLabelCheck(), SIGNAL(clicked(bool)), m_funcview, SLOT(setHorLabelOn(bool)));
-    connect(m_settingsview->getHorLabelEdit(), SIGNAL(textChanged(const QString&)), m_funcview, SLOT(setHorLabel(const QString&)));
-    connect(m_settingsview->getVerArrowCheck(), SIGNAL(clicked(bool)), m_funcview, SLOT(setVerArrowOn(bool)));
-    connect(m_settingsview->getVerGroup(), SIGNAL(clicked(bool)), m_funcview, SLOT(setVerAxisOn(bool)));
-    connect(m_settingsview->getVerLabelCheck(), SIGNAL(clicked(bool)), m_funcview, SLOT(setVerLabelOn(bool)));
-    connect(m_settingsview->getVerLabelEdit(), SIGNAL(textChanged(const QString&)), m_funcview, SLOT(setVerLabel(const QString&)));
+    // Axis.
+    connect(m_settingsview->getAxisArrowCheck(SettingsView::Hor), SIGNAL(clicked(bool)), m_funcview, SLOT(setHorArrowOn(bool)));
+    connect(m_settingsview->getAxisGroup(SettingsView::Hor), SIGNAL(clicked(bool)), m_funcview, SLOT(setHorAxisOn(bool)));
+    connect(m_settingsview->getAxisStyleCombo(SettingsView::Hor), SIGNAL(currentIndexChanged(int)), m_funcview, SLOT(setHorStyle(int)));
+    connect(m_settingsview->getAxisWidthSpin(SettingsView::Hor), SIGNAL(valueChanged(int)), m_funcview, SLOT(setHorWidth(int)));
+    connect(m_settingsview->getAxisLabelFontCombo(SettingsView::Hor), SIGNAL(currentFontChanged(QFont)), m_funcview, SLOT(setHorLabelFont(QFont)));
+    connect(m_settingsview->getAxisLabelSizeSpin(SettingsView::Hor), SIGNAL(valueChanged(double)), m_funcview, SLOT(setHorLabelSize(double)));
+    connect(m_settingsview->getAxisLabelGroup(SettingsView::Hor), SIGNAL(clicked(bool)), m_funcview, SLOT(setHorLabelOn(bool)));
+    connect(m_settingsview->getAxisLabelEdit(SettingsView::Hor), SIGNAL(textChanged(const QString&)), m_funcview, SLOT(setHorLabel(const QString&)));
+    connect(m_settingsview->getAxisTicsGroup(SettingsView::Hor), SIGNAL(clicked(bool)), m_funcview, SLOT(setHorTicsOn(bool)));
+    connect(m_settingsview->getAxisTicsLengthSpin(SettingsView::Hor), SIGNAL(valueChanged(int)), m_funcview, SLOT(setHorTicsLength(int)));
+
+    connect(m_settingsview->getAxisArrowCheck(SettingsView::Ver), SIGNAL(clicked(bool)), m_funcview, SLOT(setVerArrowOn(bool)));
+    connect(m_settingsview->getAxisGroup(SettingsView::Ver), SIGNAL(clicked(bool)), m_funcview, SLOT(setVerAxisOn(bool)));
+    connect(m_settingsview->getAxisStyleCombo(SettingsView::Ver), SIGNAL(currentIndexChanged(int)), m_funcview, SLOT(setVerStyle(int)));
+    connect(m_settingsview->getAxisWidthSpin(SettingsView::Ver), SIGNAL(valueChanged(int)), m_funcview, SLOT(setVerWidth(int)));
+    connect(m_settingsview->getAxisLabelFontCombo(SettingsView::Ver), SIGNAL(currentFontChanged(QFont)), m_funcview, SLOT(setVerLabelFont(QFont)));
+    connect(m_settingsview->getAxisLabelSizeSpin(SettingsView::Ver), SIGNAL(valueChanged(double)), m_funcview, SLOT(setVerLabelSize(double)));
+    connect(m_settingsview->getAxisLabelGroup(SettingsView::Ver), SIGNAL(clicked(bool)), m_funcview, SLOT(setVerLabelOn(bool)));
+    connect(m_settingsview->getAxisLabelEdit(SettingsView::Ver), SIGNAL(textChanged(const QString&)), m_funcview, SLOT(setVerLabel(const QString&)));
+    connect(m_settingsview->getAxisTicsGroup(SettingsView::Ver), SIGNAL(clicked(bool)), m_funcview, SLOT(setVerTicsOn(bool)));
+    connect(m_settingsview->getAxisTicsLengthSpin(SettingsView::Ver), SIGNAL(valueChanged(int)), m_funcview, SLOT(setVerTicsLength(int)));
 
     // Actions.
     connect(m_quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
@@ -126,48 +179,21 @@ MainWindow::MainWindow(QWidget *parent, QString *initFunc) :
     connect(m_fullscreenAction, SIGNAL(triggered(bool)), this, SLOT(setFullscreenOn(bool)));
     connect(m_manAction, SIGNAL(triggered()), m_manDialog, SLOT(exec()));
     connect(m_settingsAction, SIGNAL(toggled(bool)), m_settingsview, SLOT(setVisible(bool)));
-
-    if (initFunc) {
-        m_formview->getFormEdit()->setText(*initFunc);
-        plot();
-    }
-
-    initSettings();
 }
 
-MainWindow::~MainWindow(void)
+void MainWindow::initMenus(void)
 {
-    size_t size = m_gfunc.size();
-    for (unsigned short i = 0; i < size; ++i)
-        delete m_gfunc[i];
-    m_gfunc.clear();
-
-    delete m_aboutAction;
-    delete m_formAction;
-    delete m_funcAction;
-    delete m_manAction;
-    delete m_quitAction;
-    delete m_settingsAction;
-    delete m_fileMenu;
-    delete m_helpMenu;
-    delete m_viewMenu;
-    delete m_aboutDialog;
-    delete m_manDialog;
-    delete m_funcview;
-    delete m_formview;
-    delete m_settingsview;
-    delete m_settings;
-}
-
-void MainWindow::closeEvent(QCloseEvent *event)
-{
-    m_settings->beginGroup("MainWindow");
-    m_settings->setValue("Size", size());
-    m_settings->setValue("FormViewOn", m_formAction->isChecked());
-    m_settings->endGroup();
-
-    m_settingsview->saveSettings(m_settings);
-    event->accept();
+    menuBar()->addMenu(m_fileMenu);
+    m_fileMenu->addAction(m_quitAction);
+    menuBar()->addMenu(m_viewMenu);
+    m_viewMenu->addAction(m_formAction);
+    m_viewMenu->addAction(m_funcAction);
+    m_viewMenu->addAction(m_settingsAction);
+    m_viewMenu->addSeparator();
+    m_viewMenu->addAction(m_fullscreenAction);
+    menuBar()->addMenu(m_helpMenu);
+    m_helpMenu->addAction(m_manAction);
+    m_helpMenu->addAction(m_aboutAction);
 }
 
 void MainWindow::initSettings(void)
@@ -201,8 +227,10 @@ void MainWindow::plot(void)
             m_functionsview->addFunc(m_gfunc[index]);
             m_formview->getFormEdit()->clear();
         } else {
-            delete m_gfunc[++index];
+            delete m_gfunc[index];
             m_gfunc.erase(m_gfunc.begin() + index);
+            QMessageBox msgBox(QMessageBox::Warning, tr("Error"), tr("Input incorrect."));
+            msgBox.exec();
         }
     } else {
         QMessageBox msgBox(QMessageBox::Warning, tr("Error"), tr("Input incorrect."));
@@ -310,7 +338,7 @@ void MainWindow::setFuncMinOn(bool on) const
         gfunc->setMinOn(on);
 
         if (on) {
-            gfunc->setNumMin(m_functionsview->getMinSpin()->value());
+            gfunc->setMinNum(m_functionsview->getMinSpin()->value());
             m_funcview->plot(gfunc);
         } else
             m_funcview->plot(gfunc);
@@ -323,7 +351,7 @@ void MainWindow::setFuncMinNum(double min) const
     QListWidget *list = m_functionsview->getFuncList();
     if (list->count() > 0) {
         GFunction *gfunc = m_gfunc[list->currentRow()];
-        gfunc->setNumMin(min);
+        gfunc->setMinNum(min);
         m_funcview->plot(gfunc);
         m_funcview->getQwtPlot()->replot();
     }
@@ -388,11 +416,22 @@ void MainWindow::setFuncWidth(int width) const
 
 void MainWindow::setSettingsColor(const QColor &col) const
 {
-    // 0: Grid, 2: BG.
+    // 0: Grid, 1: Axes, 2: BG.
+    QTabWidget *tab = m_settingsview->getAxesTab();
     switch (m_settingsview->getToolBox()->currentIndex()) {
     case 0:     m_funcview->setGridCol(col);
                 m_settingsview->getGridColButton()->setPalette(QPalette(col));
                 break;
+
+    case 1:     if (tab->currentIndex() == 0) {
+                    m_funcview->setHorAxisCol(col);
+                    m_settingsview->getAxisColButton(SettingsView::Hor)->setPalette(QPalette(col));
+                } else if (tab->currentIndex() == 1) {
+                     m_funcview->setVerAxisCol(col);
+                     m_settingsview->getAxisColButton(SettingsView::Ver)->setPalette(QPalette(col));
+                }
+                break;
+
     case 2:     m_funcview->setBGCol(col);
                 m_settingsview->getBGColButton()->setPalette(QPalette(col));
                 break;

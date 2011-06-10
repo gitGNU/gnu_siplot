@@ -32,28 +32,42 @@ public:
     ~GFunction(void);
 
     QwtPlotCurve* getCurve(void) const;
+
     const string& getExpression(void) const;
-    double getMaxNum(void) const;
-    double getMinNum(void) const;
-    bool getMaxOn(void) const;
-    bool getMinOn(void) const;
-    const string& getName(void) const;
-    QPen* getPen(void) const;
-    double getPrecNum(void) const;
-    bool getPrecOn(void) const;
-    bool getShow(void) const;
-    void setColor(const QColor col) const;
-    bool setData(void);
     void setExpression(const string& expr) const;
+
+    double getMaxNum(void) const;
     void setMaxNum(double max) const;
-    void setNumMin(double min) const;
+
+    bool getMaxOn(void) const;
     void setMaxOn(bool on);
+
+    bool getMinOn(void) const;
     void setMinOn(bool on);
+
+    double getMinNum(void) const;
+    void setMinNum(double min) const;
+
+    const string& getName(void) const;
     void setName(const string& str) const;
+
+    QPen* getPen(void) const;
+
+    double getPrecNum(void) const;
     void setPrecNum(double prec) const;
+
+    bool getPrecOn(void) const;
     void setPrecOn(bool on);
+
+    bool getShow(void) const;
     void setShow(bool on);
+
+    void setColor(const QColor col) const;
+
+    bool setData(void);
+
     void setStyle(Qt::PenStyle i) const;
+
     void setWidth(int width) const;
 
 private:

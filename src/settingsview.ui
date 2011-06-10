@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>199</width>
-    <height>333</height>
+    <width>381</width>
+    <height>445</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,8 +18,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>199</width>
-    <height>333</height>
+    <width>381</width>
+    <height>445</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -45,14 +45,11 @@
     <property name="spacing">
      <number>0</number>
     </property>
-    <property name="sizeConstraint">
-     <enum>QLayout::SetNoConstraint</enum>
-    </property>
     <property name="margin">
      <number>0</number>
     </property>
     <item>
-     <widget class="QToolBox" name="m_toolBox">
+     <widget class="QToolBox" name="m_settingsToolBox">
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
       </property>
@@ -68,13 +65,13 @@
       <property name="tabSpacing">
        <number>4</number>
       </property>
-      <widget class="QWidget" name="page_0">
+      <widget class="QWidget" name="m_gridPage">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>183</width>
-         <height>157</height>
+         <width>365</width>
+         <height>164</height>
         </rect>
        </property>
        <attribute name="label">
@@ -122,14 +119,14 @@
             <number>-1</number>
            </property>
            <item row="3" column="0">
-            <widget class="QLabel" name="label_4">
+            <widget class="QLabel" name="m_girdWidthLabel">
              <property name="text">
               <string>Width:</string>
              </property>
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QLabel" name="label_9">
+            <widget class="QLabel" name="m_girdColLabel">
              <property name="text">
               <string>Color:</string>
              </property>
@@ -143,7 +140,7 @@
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_10">
+            <widget class="QLabel" name="m_gridStyleLabel">
              <property name="text">
               <string>Style:</string>
              </property>
@@ -209,19 +206,19 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_1">
+      <widget class="QWidget" name="m_axesPage">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>183</width>
-         <height>188</height>
+         <width>365</width>
+         <height>302</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Axes</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,0">
+       <layout class="QGridLayout" name="gridLayout" rowstretch="0,0">
         <property name="horizontalSpacing">
          <number>4</number>
         </property>
@@ -232,146 +229,683 @@
          <number>4</number>
         </property>
         <item row="1" column="0">
-         <widget class="QGroupBox" name="m_horGroup">
-          <property name="title">
-           <string>Show Horizontal Axis</string>
+         <spacer name="verticalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
           </property>
-          <property name="flat">
-           <bool>true</bool>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
           </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
-           <property name="margin">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QFrame" name="m_horFrame">
-             <property name="frameShape">
-              <enum>QFrame::NoFrame</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Plain</enum>
-             </property>
-             <property name="lineWidth">
-              <number>0</number>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_4">
-              <property name="leftMargin">
-               <number>0</number>
-              </property>
-              <property name="rightMargin">
-               <number>0</number>
-              </property>
-              <item row="3" column="0">
-               <widget class="QCheckBox" name="m_horLabelCheck">
-                <property name="text">
-                 <string>Show Label:</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QCheckBox" name="m_horArrowCheck">
-                <property name="text">
-                 <string>Show Arrow</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="1">
-               <widget class="QLineEdit" name="m_horLabelEdit">
-                <property name="text">
-                 <string>X</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-          </layout>
-         </widget>
+         </spacer>
         </item>
         <item row="0" column="0">
-         <widget class="QGroupBox" name="m_verGroup">
-          <property name="title">
-           <string>Show Vertical Axis</string>
+         <widget class="QTabWidget" name="m_axesTabWidget">
+          <property name="tabPosition">
+           <enum>QTabWidget::North</enum>
           </property>
-          <property name="flat">
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <property name="elideMode">
+           <enum>Qt::ElideNone</enum>
+          </property>
+          <property name="usesScrollButtons">
            <bool>true</bool>
           </property>
-          <property name="checkable">
+          <property name="documentMode">
            <bool>true</bool>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_5">
-           <property name="margin">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QFrame" name="m_verFrame">
-             <property name="frameShape">
-              <enum>QFrame::NoFrame</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Plain</enum>
-             </property>
-             <property name="lineWidth">
-              <number>0</number>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_5">
-              <property name="leftMargin">
-               <number>0</number>
+          <property name="tabsClosable">
+           <bool>false</bool>
+          </property>
+          <property name="movable">
+           <bool>false</bool>
+          </property>
+          <widget class="QWidget" name="m_horAxisTab">
+           <attribute name="title">
+            <string>Horizontal Axis</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_7" stretch="0">
+            <property name="topMargin">
+             <number>4</number>
+            </property>
+            <item>
+             <widget class="QGroupBox" name="m_horGroup">
+              <property name="title">
+               <string>Show Horizontal Axis</string>
               </property>
-              <property name="rightMargin">
-               <number>0</number>
+              <property name="flat">
+               <bool>true</bool>
               </property>
-              <item row="0" column="0" colspan="3">
-               <widget class="QCheckBox" name="m_verArrowCheck">
-                <property name="text">
-                 <string>Show Arrow</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QLineEdit" name="m_verLabelEdit">
-                <property name="text">
-                 <string>Y</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QCheckBox" name="m_verLabelCheck">
-                <property name="text">
-                 <string>Show Label:</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-          </layout>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_3">
+               <property name="spacing">
+                <number>0</number>
+               </property>
+               <property name="margin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QFrame" name="m_horFrame">
+                 <property name="frameShape">
+                  <enum>QFrame::NoFrame</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Plain</enum>
+                 </property>
+                 <property name="lineWidth">
+                  <number>0</number>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout_4">
+                  <property name="margin">
+                   <number>0</number>
+                  </property>
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                  <item row="5" column="0" colspan="2">
+                   <widget class="QGroupBox" name="m_horLabelGroup">
+                    <property name="title">
+                     <string>Show Label</string>
+                    </property>
+                    <property name="flat">
+                     <bool>true</bool>
+                    </property>
+                    <property name="checkable">
+                     <bool>true</bool>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_9">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <property name="margin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QFrame" name="m_horLabelFrame">
+                       <property name="frameShape">
+                        <enum>QFrame::NoFrame</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Plain</enum>
+                       </property>
+                       <property name="lineWidth">
+                        <number>0</number>
+                       </property>
+                       <layout class="QGridLayout" name="gridLayout_8">
+                        <property name="margin">
+                         <number>0</number>
+                        </property>
+                        <property name="spacing">
+                         <number>0</number>
+                        </property>
+                        <item row="2" column="0">
+                         <widget class="QLabel" name="m_horLabelLabel">
+                          <property name="text">
+                           <string>Label:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="2" column="2" colspan="5">
+                         <widget class="QLineEdit" name="m_horLabelEdit">
+                          <property name="text">
+                           <string>X</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="2" column="1" rowspan="2">
+                         <spacer name="horizontalSpacer_4">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item row="3" column="2">
+                         <widget class="QFontComboBox" name="m_horLabelFontCombo"/>
+                        </item>
+                        <item row="3" column="0">
+                         <widget class="QLabel" name="m_horLabelFontLabel">
+                          <property name="text">
+                           <string>Font:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="3" column="6">
+                         <widget class="QDoubleSpinBox" name="m_horLabelSizeSpin">
+                          <property name="minimum">
+                           <double>1.000000000000000</double>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="3" column="3">
+                         <spacer name="horizontalSpacer_3">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item row="3" column="4">
+                         <widget class="QLabel" name="m_horLabelSizeLabel">
+                          <property name="text">
+                           <string>Size:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="3" column="5">
+                         <spacer name="horizontalSpacer_6">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="m_horWidthLabel">
+                    <property name="text">
+                     <string>Width:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="m_horColLabel">
+                    <property name="text">
+                     <string>Color:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="m_horStyleLabel">
+                    <property name="text">
+                     <string>Style:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0" colspan="2">
+                   <widget class="QCheckBox" name="m_horArrowCheck">
+                    <property name="text">
+                     <string>Show Arrow</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="0" colspan="2">
+                   <widget class="QGroupBox" name="m_horTicsGroup">
+                    <property name="title">
+                     <string>Show Tics</string>
+                    </property>
+                    <property name="flat">
+                     <bool>true</bool>
+                    </property>
+                    <property name="checkable">
+                     <bool>true</bool>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_11">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <property name="margin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QFrame" name="m_horTicsFrame">
+                       <property name="frameShape">
+                        <enum>QFrame::NoFrame</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Plain</enum>
+                       </property>
+                       <property name="lineWidth">
+                        <number>0</number>
+                       </property>
+                       <layout class="QGridLayout" name="gridLayout_9">
+                        <property name="margin">
+                         <number>0</number>
+                        </property>
+                        <property name="spacing">
+                         <number>0</number>
+                        </property>
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="label_2">
+                          <property name="text">
+                           <string>Length:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="1" colspan="2">
+                         <widget class="QSpinBox" name="m_horTicsLengthSpin">
+                          <property name="suffix">
+                           <string> px</string>
+                          </property>
+                          <property name="minimum">
+                           <number>1</number>
+                          </property>
+                          <property name="maximum">
+                           <number>1000</number>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item row="4" column="1">
+                   <widget class="QSpinBox" name="m_horWidthSpin">
+                    <property name="suffix">
+                     <string> px</string>
+                    </property>
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>1000</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QComboBox" name="m_horStyleCombo">
+                    <item>
+                     <property name="text">
+                      <string>Solid</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Dash</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Dot</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Dash Dot</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Dash Dot Dot</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QPushButton" name="m_horColButton">
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="m_verAxisTab">
+           <attribute name="title">
+            <string>Vertical Axis</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_6" stretch="0">
+            <property name="leftMargin">
+             <number>4</number>
+            </property>
+            <property name="rightMargin">
+             <number>4</number>
+            </property>
+            <item>
+             <widget class="QGroupBox" name="m_verGroup">
+              <property name="title">
+               <string>Show Vertical Axis</string>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0">
+               <property name="spacing">
+                <number>0</number>
+               </property>
+               <property name="margin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QFrame" name="m_verFrame">
+                 <property name="frameShape">
+                  <enum>QFrame::NoFrame</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Plain</enum>
+                 </property>
+                 <property name="lineWidth">
+                  <number>0</number>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout_5">
+                  <property name="margin">
+                   <number>0</number>
+                  </property>
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                  <item row="4" column="1">
+                   <widget class="QSpinBox" name="m_verWidthSpin">
+                    <property name="suffix">
+                     <string> px</string>
+                    </property>
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>1000</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QPushButton" name="m_verColButton">
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QComboBox" name="m_verStyleCombo">
+                    <item>
+                     <property name="text">
+                      <string>Solid</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Dash</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Dot</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Dash Dot</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Dash Dot Dot</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="m_verWidthLabel">
+                    <property name="text">
+                     <string>Width:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="m_verColLabel">
+                    <property name="text">
+                     <string>Color:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="m_verStyleLabel">
+                    <property name="text">
+                     <string>Style:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0" colspan="2">
+                   <widget class="QCheckBox" name="m_verArrowCheck">
+                    <property name="text">
+                     <string>Show Arrow</string>
+                    </property>
+                    <property name="checked">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="0" colspan="2">
+                   <widget class="QGroupBox" name="m_verTicsGroup">
+                    <property name="title">
+                     <string>Show Tics</string>
+                    </property>
+                    <property name="flat">
+                     <bool>true</bool>
+                    </property>
+                    <property name="checkable">
+                     <bool>true</bool>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_10">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <property name="margin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QFrame" name="m_verTicsFrame">
+                       <property name="frameShape">
+                        <enum>QFrame::NoFrame</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Plain</enum>
+                       </property>
+                       <property name="lineWidth">
+                        <number>0</number>
+                       </property>
+                       <layout class="QGridLayout" name="gridLayout_6">
+                        <property name="margin">
+                         <number>0</number>
+                        </property>
+                        <property name="spacing">
+                         <number>0</number>
+                        </property>
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="m_verTicsLengthLabel">
+                          <property name="text">
+                           <string>Length:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="1" colspan="2">
+                         <widget class="QSpinBox" name="m_verTicsLengthSpin">
+                          <property name="suffix">
+                           <string> px</string>
+                          </property>
+                          <property name="prefix">
+                           <string/>
+                          </property>
+                          <property name="minimum">
+                           <number>1</number>
+                          </property>
+                          <property name="maximum">
+                           <number>1000</number>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item row="5" column="0" colspan="2">
+                   <widget class="QGroupBox" name="m_verLabelGroup">
+                    <property name="title">
+                     <string>Show Label</string>
+                    </property>
+                    <property name="flat">
+                     <bool>true</bool>
+                    </property>
+                    <property name="checkable">
+                     <bool>true</bool>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_8">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <property name="margin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QFrame" name="m_verLabelFrame">
+                       <property name="frameShape">
+                        <enum>QFrame::NoFrame</enum>
+                       </property>
+                       <property name="frameShadow">
+                        <enum>QFrame::Plain</enum>
+                       </property>
+                       <property name="lineWidth">
+                        <number>0</number>
+                       </property>
+                       <layout class="QGridLayout" name="gridLayout_10">
+                        <property name="margin">
+                         <number>0</number>
+                        </property>
+                        <property name="spacing">
+                         <number>0</number>
+                        </property>
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="m_verLabelLabel">
+                          <property name="text">
+                           <string>Label:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="0" column="2" colspan="5">
+                         <widget class="QLineEdit" name="m_verLabelEdit">
+                          <property name="text">
+                           <string>Y</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="0">
+                         <widget class="QLabel" name="m_verLabelFontLabel">
+                          <property name="text">
+                           <string>Font:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="2">
+                         <widget class="QFontComboBox" name="m_verLabelFontCombo"/>
+                        </item>
+                        <item row="1" column="4">
+                         <widget class="QLabel" name="m_verLabelSizeLabel">
+                          <property name="text">
+                           <string>Size:</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="6">
+                         <widget class="QDoubleSpinBox" name="m_verLabelSizeSpin"/>
+                        </item>
+                        <item row="0" column="1" rowspan="2">
+                         <spacer name="horizontalSpacer_5">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item row="1" column="5">
+                         <spacer name="horizontalSpacer_9">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item row="1" column="3">
+                         <spacer name="horizontalSpacer_10">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
          </widget>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_2">
+      <widget class="QWidget" name="m_bgPage">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>183</width>
-         <height>76</height>
+         <width>365</width>
+         <height>92</height>
         </rect>
        </property>
        <attribute name="label">
@@ -382,7 +916,7 @@
          <number>4</number>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_7">
+         <widget class="QLabel" name="m_bgColLabel">
           <property name="text">
            <string>Color:</string>
           </property>
@@ -396,7 +930,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <spacer name="verticalSpacer_3">
+         <spacer name="m_bgVerSpacer">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -410,13 +944,13 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_3">
+      <widget class="QWidget" name="m_coordPage">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>183</width>
-         <height>73</height>
+         <width>365</width>
+         <height>92</height>
         </rect>
        </property>
        <attribute name="label">
@@ -437,7 +971,7 @@
          </widget>
         </item>
         <item>
-         <spacer name="verticalSpacer_2">
+         <spacer name="m_coordVertSpacer">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -454,14 +988,14 @@
      </widget>
     </item>
     <item>
-     <spacer name="verticalSpacer">
+     <spacer name="verticalSpacer_6">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
       <property name="sizeHint" stdset="0">
        <size>
         <width>20</width>
-        <height>40</height>
+        <height>30</height>
        </size>
       </property>
      </spacer>

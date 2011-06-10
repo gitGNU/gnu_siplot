@@ -153,7 +153,7 @@ void GFunction::setMaxOn(bool on)
     m_maxOn = on;
 }
 
-void GFunction::setNumMin(double min) const
+void GFunction::setMinNum(double min) const
 {
     m_func->setMinNum(min);
 }

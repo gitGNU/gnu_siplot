@@ -31,18 +31,20 @@ public:
 
     const string& getExpression(void) const;
     double getResult(double val);
+
     void setExpression(const string &expr);
 
-    enum Token { Tok_Err,  // Unknown token.
-                 Tok_Num,  // Number.
-                 Tok_Plu,  // Plus operator.
-                 Tok_Min,  // Minus operator.
-                 Tok_Mul,  // Multiplication operator.
-                 Tok_Div,  // Division operator.
-                 Tok_Pot,  // Exponentiation operator.
-                 Tok_ParL, // Left parenthesis.
-                 Tok_ParR  // Right parenthesis.
-               };
+    enum Token {
+        Tok_Err,  // Unknown token.
+        Tok_Num,  // Number.
+        Tok_Plu,  // Plus operator.
+        Tok_Min,  // Minus operator.
+        Tok_Mul,  // Multiplication operator.
+        Tok_Div,  // Division operator.
+        Tok_Pot,  // Exponentiation operator.
+        Tok_ParL, // Left parenthesis.
+        Tok_ParR  // Right parenthesis.
+    };
 
 private:
     double m_actNumber;

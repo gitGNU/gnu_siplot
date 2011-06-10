@@ -35,26 +35,31 @@ public:
     const string& getName(void) const;
     unsigned short getType(void) const;
 
-    enum Type { Func, // Add function.
-                Var,  // Add variable.
-                Calc, // Do a calculation.
-                Err   // Error.
-              };
+    enum Type {
+        Func, // Add function.
+        Var,  // Add variable.
+        Calc, // Do a calculation.
+        Err   // Error.
+    };
 
 private:
     string m_expr; // Function expression.
-    // vector<string> m_keywords;
     vector<GFunction*> m_gfunc;
     string m_name; // Name of function or variable.
     bool m_same;
     string m_str;  // Complete input string.
     Type m_type; // Type of command.
-    // double m_val;  // Value of variable.
+
+    /* Not needed yet.
+     * vector<string> m_keywords;
+     * double m_val;  // Value of variable.
+     *
+     * bool isKeyword(const string &str) const;
+     */
 
     void eraseSpaces(void);
     bool isAlphabetic(const string &str) const;
     bool isFuncName(const string &str) const;
-    // bool isKeyword(const string &str) const;
     void parse(void);
 };
 

@@ -26,13 +26,24 @@ SettingsView::SettingsView(QWidget *parent) :
     m_ui->setupUi(this);
     setWindowTitle(tr("Settings"));
 
+    // Color Buttons.
     connect(m_ui->m_bgColButton, SIGNAL(clicked()), m_colDialog, SLOT(exec()));
-    connect(m_ui->m_gridCheck, SIGNAL(clicked(bool)), m_ui->m_gridFrame, SLOT(setVisible(bool)));
     connect(m_ui->m_gridColButton, SIGNAL(clicked()), m_colDialog, SLOT(exec()));
+    connect(m_ui->m_horColButton, SIGNAL(clicked()), m_colDialog, SLOT(exec()));
+    connect(m_ui->m_verColButton, SIGNAL(clicked()), m_colDialog, SLOT(exec()));
+
+    // Grid.
+    connect(m_ui->m_gridCheck, SIGNAL(clicked(bool)), m_ui->m_gridFrame, SLOT(setVisible(bool)));
+
+    // Horizontal Axis.
     connect(m_ui->m_horGroup, SIGNAL(clicked(bool)), m_ui->m_horFrame, SLOT(setVisible(bool)));
-    connect(m_ui->m_horLabelCheck, SIGNAL(clicked(bool)), m_ui->m_horLabelEdit, SLOT(setEnabled(bool)));
+    connect(m_ui->m_horLabelGroup, SIGNAL(clicked(bool)), m_ui->m_horLabelFrame, SLOT(setVisible(bool)));
+    connect(m_ui->m_horTicsGroup, SIGNAL(clicked(bool)), m_ui->m_horTicsFrame, SLOT(setVisible(bool)));
+
+    // Vertical Axis.
     connect(m_ui->m_verGroup, SIGNAL(clicked(bool)), m_ui->m_verFrame, SLOT(setVisible(bool)));
-    connect(m_ui->m_verLabelCheck, SIGNAL(clicked(bool)), m_ui->m_verLabelEdit, SLOT(setEnabled(bool)));
+    connect(m_ui->m_verLabelGroup, SIGNAL(clicked(bool)), m_ui->m_verLabelFrame, SLOT(setVisible(bool)));
+    connect(m_ui->m_verTicsGroup, SIGNAL(clicked(bool)), m_ui->m_verTicsFrame, SLOT(setVisible(bool)));
 }
 
 SettingsView::~SettingsView(void)
@@ -45,7 +56,7 @@ void SettingsView::initSettings(QSettings *settings)
 {
     settings->beginGroup("Settings");
 
-    m_ui->m_toolBox->setCurrentIndex(settings->value("CurrentPage", 0).toInt());
+    m_ui->m_settingsToolBox->setCurrentIndex(settings->value("CurrentPage", 0).toInt());
 
     // Grid.
     bool gridOn = settings->value("GridOn", true).toBool();
@@ -61,28 +72,181 @@ void SettingsView::initSettings(QSettings *settings)
     m_ui->m_horGroup->setChecked(horAxisOn);
     m_ui->m_horFrame->setVisible(horAxisOn);
     m_ui->m_horArrowCheck->setChecked(settings->value("HorArrowOn", true).toBool());
+    m_ui->m_horColButton->setPalette(QPalette(settings->value("HorAxisColor", Qt::black).toString()));
+    m_ui->m_horWidthSpin->setValue(settings->value("HorAxisWidth", 1).toInt());
     bool horLabelOn = settings->value("HorLabelOn", true).toBool();
-    m_ui->m_horLabelCheck->setChecked(horLabelOn);
-    m_ui->m_horLabelEdit->setEnabled(horLabelOn);
+    m_ui->m_horLabelGroup->setChecked(horLabelOn);
     m_ui->m_horLabelEdit->setText(settings->value("HorLabel", "X").toString());
+    m_ui->m_horLabelFontCombo->setCurrentIndex(settings->value("HorLabelFont").toInt());
+    m_ui->m_horLabelSizeSpin->setValue(settings->value("HorLabelSize", 10).toDouble());
+    m_ui->m_horTicsGroup->setChecked(settings->value("HorTicsOn", true).toBool());
+    m_ui->m_horTicsLengthSpin->setValue(settings->value("HOrTicsLength", 10).toInt());
 
     bool verAxisOn = settings->value("VerAxisOn", true).toBool();
     m_ui->m_verGroup->setChecked(verAxisOn);
     m_ui->m_verFrame->setVisible(verAxisOn);
     m_ui->m_verArrowCheck->setChecked(settings->value("VerArrowOn", true).toBool());
+    m_ui->m_verWidthSpin->setValue(settings->value("VerAxisWidth", 1).toInt());
+    m_ui->m_verColButton->setPalette(QPalette(settings->value("VerAxisColor", Qt::black).toString()));
     bool verLabelOn = settings->value("VerLabelOn", true).toBool();
-    m_ui->m_verLabelCheck->setChecked(verLabelOn);
-    m_ui->m_verLabelEdit->setEnabled(verLabelOn);
+    m_ui->m_verLabelGroup->setChecked(verLabelOn);
     m_ui->m_verLabelEdit->setText(settings->value("VerLabel", "Y").toString());
+    m_ui->m_verLabelFontCombo->setCurrentIndex(settings->value("VerLabelFont").toInt());
+    m_ui->m_verLabelSizeSpin->setValue(settings->value("VerLabelSize", 10).toDouble());
+    m_ui->m_verTicsGroup->setChecked(settings->value("VerTicsOn", true).toBool());
+    m_ui->m_verTicsLengthSpin->setValue(settings->value("VerTicsLength", 10).toInt());
 
     // Background.
-    m_ui->m_bgColButton->setPalette(QPalette((settings->value("BGColor", Qt::white).toString())));
+    m_ui->m_bgColButton->setPalette(QPalette(settings->value("BGColor", Qt::white).toString()));
 
     // Coordinates.
     m_ui->m_coordMouseCheck->setChecked(settings->value("CoordinatesMouseOn", true).toBool());
 
     settings->endGroup();
 }
+
+QTabWidget* SettingsView::getAxesTab(void) const
+{
+    return m_ui->m_axesTabWidget;
+}
+
+QCheckBox* SettingsView::getAxisArrowCheck(unsigned short axis) const
+{
+    switch (axis) {
+    case Hor:    return m_ui->m_horArrowCheck;
+    case Ver:      return m_ui->m_verArrowCheck;
+    }
+    return 0;
+}
+
+QPushButton* SettingsView::getAxisColButton(unsigned short axis) const
+{
+    switch (axis) {
+    case Hor:    return m_ui->m_horColButton;
+    case Ver:      return m_ui->m_verColButton;
+    }
+    return 0;
+}
+
+QGroupBox* SettingsView::getAxisGroup(unsigned short axis) const
+{
+    switch (axis) {
+    case Hor:    return m_ui->m_horGroup;
+    case Ver:      return m_ui->m_verGroup;
+    }
+    return 0;
+}
+
+QComboBox* SettingsView::getAxisStyleCombo(unsigned short axis) const
+{
+    switch (axis) {
+    case Hor:    return m_ui->m_horStyleCombo;
+    case Ver:      return m_ui->m_verStyleCombo;
+    }
+    return 0;
+}
+
+QSpinBox* SettingsView::getAxisWidthSpin(unsigned short axis) const
+{
+    switch (axis) {
+    case Hor:    return m_ui->m_horWidthSpin;
+    case Ver:      return m_ui->m_verWidthSpin;
+    }
+    return 0;
+}
+
+QLineEdit* SettingsView::getAxisLabelEdit(unsigned short axis) const
+{
+    switch (axis) {
+    case Hor:    return m_ui->m_horLabelEdit;
+    case Ver:      return m_ui->m_verLabelEdit;
+    }
+    return 0;
+}
+
+QGroupBox* SettingsView::getAxisLabelGroup(unsigned short axis) const
+{
+    switch (axis) {
+    case Hor:    return m_ui->m_horLabelGroup;
+    case Ver:      return m_ui->m_verLabelGroup;
+    }
+    return 0;
+}
+
+QDoubleSpinBox* SettingsView::getAxisLabelSizeSpin(unsigned short axis) const
+{
+    switch (axis) {
+    case Hor:    return m_ui->m_horLabelSizeSpin;
+    case Ver:      return m_ui->m_verLabelSizeSpin;
+    }
+    return 0;
+}
+
+QFontComboBox* SettingsView::getAxisLabelFontCombo(unsigned short axis) const
+{
+    switch (axis) {
+    case Hor:    return m_ui->m_horLabelFontCombo;
+    case Ver:      return m_ui->m_verLabelFontCombo;
+    }
+    return 0;
+}
+
+QGroupBox* SettingsView::getAxisTicsGroup(unsigned short axis) const
+{
+    switch (axis) {
+    case Hor:    return m_ui->m_horTicsGroup;
+    case Ver:      return m_ui->m_verTicsGroup;
+    }
+    return 0;
+}
+
+QSpinBox* SettingsView::getAxisTicsLengthSpin(unsigned short axis) const
+{
+    switch (axis) {
+    case Hor:    return m_ui->m_horTicsLengthSpin;
+    case Ver:      return m_ui->m_verTicsLengthSpin;
+    }
+    return 0;
+}
+
+/* Not implemented yet.
+
+QPushButton* SettingsView::getAxisTicsColButton(unsigned short axis) const
+{
+    switch (axis) {
+    case Hor:    return m_ui->m_horTicsColButton;
+    case Ver:      return m_ui->m_verTicsColButton;
+    }
+    return 0;
+}
+
+QSpinBox* SettingsView::getAxisTicsWidthSpin(unsigned short axis) const
+{
+    switch (axis) {
+    case Hor:    return m_ui->m_horTicsWidthSpin;
+    case Ver:      return m_ui->m_verTicsWidthSpin;
+    }
+    return 0;
+}
+
+QFontComboBox* SettingsView::getAxisTicsFontCombo(unsigned short axis) const
+{
+    switch (axis) {
+    case Hor:    return m_ui->m_horTicsFontCombo;
+    case Ver:      return m_ui->m_verTicsFontCombo;
+    }
+    return 0;
+}
+
+QDoubleSpinBox* SettingsView::getAxisTicsSizeSpin(unsigned short axis) const
+{
+    switch (axis) {
+    case Hor:    return m_ui->m_horTicsSizeSpin;
+    case Ver:      return m_ui->m_verTicsSizeSpin;
+    }
+    return 0;
+}
+*/
 
 QPushButton* SettingsView::getBGColButton(void) const
 {
@@ -119,57 +283,18 @@ QSpinBox* SettingsView::getGridWidthSpin(void) const
     return m_ui->m_gridWidthSpin;
 }
 
-QCheckBox* SettingsView::getHorArrowCheck(void) const
-{
-    return m_ui->m_horArrowCheck;
-}
-
-QGroupBox* SettingsView::getHorGroup(void) const
-{
-    return m_ui->m_horGroup;
-}
-
-QCheckBox* SettingsView::getHorLabelCheck(void) const
-{
-    return m_ui->m_horLabelCheck;
-}
-
-QLineEdit* SettingsView::getHorLabelEdit(void) const
-{
-    return m_ui->m_horLabelEdit;
-}
-
 QToolBox* SettingsView::getToolBox(void) const
 {
-    return m_ui->m_toolBox;
+    return m_ui->m_settingsToolBox;
 }
 
-QCheckBox* SettingsView::getVerArrowCheck(void) const
-{
-    return m_ui->m_verArrowCheck;
-}
-
-QGroupBox* SettingsView::getVerGroup(void) const
-{
-    return m_ui->m_verGroup;
-}
-
-QCheckBox* SettingsView::getVerLabelCheck(void) const
-{
-    return m_ui->m_verLabelCheck;
-}
-
-QLineEdit* SettingsView::getVerLabelEdit(void) const
-{
-    return m_ui->m_verLabelEdit;
-}
 
 void SettingsView::saveSettings(QSettings *settings)
 {
     settings->beginGroup("Settings");
 
     settings->setValue("IsOn", isVisible());
-    settings->setValue("CurrentPage", m_ui->m_toolBox->currentIndex());
+    settings->setValue("CurrentPage", m_ui->m_settingsToolBox->currentIndex());
 
     // Grid.
     settings->setValue("GridOn", m_ui->m_gridCheck->isChecked());
@@ -180,13 +305,25 @@ void SettingsView::saveSettings(QSettings *settings)
     // Axes.
     settings->setValue("HorAxisOn", m_ui->m_horGroup->isChecked());
     settings->setValue("HorArrowOn", m_ui->m_horArrowCheck->isChecked());
-    settings->setValue("HorLabelOn", m_ui->m_horLabelCheck->isChecked());
+    settings->setValue("HorAxisColor", m_ui->m_horColButton->palette().color(QPalette::Background).name());
+    settings->setValue("HorAxisWidth", m_ui->m_horWidthSpin->value());
+    settings->setValue("HorLabelOn", m_ui->m_horLabelGroup->isChecked());
     settings->setValue("HorLabel", m_ui->m_horLabelEdit->text());
+    settings->setValue("HorLabelFont", m_ui->m_horLabelFontCombo->currentIndex());
+    settings->setValue("HorLabelSize", m_ui->m_horLabelSizeSpin->value());
+    settings->setValue("HorTicsOn", m_ui->m_horTicsGroup->isChecked());
+    settings->setValue("HorTicsLength", m_ui->m_horTicsLengthSpin->value());
 
     settings->setValue("VerAxisOn", m_ui->m_verGroup->isChecked());
     settings->setValue("VerArrowOn", m_ui->m_verArrowCheck->isChecked());
-    settings->setValue("VerLabelOn", m_ui->m_verLabelCheck->isChecked());
+    settings->setValue("VerAxisColor", m_ui->m_verColButton->palette().color(QPalette::Background).name());
+    settings->setValue("VerAxisWidth", m_ui->m_verWidthSpin->value());
+    settings->setValue("VerLabelOn", m_ui->m_verLabelGroup->isChecked());
     settings->setValue("VerLabel", m_ui->m_verLabelEdit->text());
+    settings->setValue("VerLabelFont", m_ui->m_verLabelFontCombo->currentIndex());
+    settings->setValue("VerLabelSize", m_ui->m_verLabelSizeSpin->value());
+    settings->setValue("VerTicsOn", m_ui->m_verTicsGroup->isChecked());
+    settings->setValue("VerTicsLength", m_ui->m_verTicsLengthSpin->value());
 
     // Background.
     settings->setValue("BGColor", m_ui->m_bgColButton->palette().color(QPalette::Background).name());

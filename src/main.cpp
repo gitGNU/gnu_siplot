@@ -16,8 +16,8 @@
 */
 
 #include <cstdlib>
-#include <iostream>
 #include <getopt.h>
+#include <iostream>
 #include <QtGlobal>
 #include <QtGui/QApplication>
 
@@ -92,7 +92,8 @@ int main(int argc, char *argv[])
         switch (option) {
         case 'h':   usage(EXIT_SUCCESS);
 
-        case 'v':   version(QCoreApplication::applicationName().toStdString(), "David Jenni <dave.j@gmx.ch>", QCoreApplication::applicationVersion().toStdString());
+        case 'v':   version(QCoreApplication::applicationName().toStdString(), "David Jenni <dave.j@gmx.ch>",
+                            QCoreApplication::applicationVersion().toStdString());
                     exit(EXIT_SUCCESS);
 
         case '?':   usage(EXIT_FAILURE);

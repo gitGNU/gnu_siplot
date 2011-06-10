@@ -34,6 +34,7 @@ public:
     ~FunctionsView(void);
 
     void addFunc(GFunction *gfunc) const;
+
     QPushButton* getColButton(void) const;
     QColorDialog* getColDialog(void) const;
     QPushButton* getDelButton(void) const;
@@ -48,6 +49,7 @@ public:
     QCheckBox* getShowCheck(void) const;
     QComboBox* getStyleCombo(void) const;
     QSpinBox* getWidthSpin(void) const;
+
     void setFuncExpression(GFunction *gfunc) const;
     void setProperties(GFunction *gfunc);
 

@@ -32,23 +32,50 @@ public:
     ~SettingsView(void);
 
     void initSettings(QSettings *settings);
+    void saveSettings(QSettings *settings);
+
+    QTabWidget* getAxesTab(void) const;
+
+    // Axes.
+    QCheckBox* getAxisArrowCheck(unsigned short axis) const;
+    QPushButton* getAxisColButton(unsigned short axis) const;
+    QGroupBox* getAxisGroup(unsigned short axis) const;
+    QComboBox* getAxisStyleCombo(unsigned short axis) const;
+    QSpinBox* getAxisWidthSpin(unsigned short axis) const;
+
+    // Axes Label.
+    QGroupBox* getAxisLabelGroup(unsigned short axis) const;
+    QLineEdit* getAxisLabelEdit(unsigned short axis) const;
+    QFontComboBox* getAxisLabelFontCombo(unsigned short axis) const;
+    QDoubleSpinBox* getAxisLabelSizeSpin(unsigned short axis) const;
+
+    // Axes Tics.
+    QGroupBox* getAxisTicsGroup(unsigned short axis) const;
+    QSpinBox* getAxisTicsLengthSpin(unsigned short axis) const;
+
+    /* Not implemented yet.
+     * QPushButton* getAxisTicsColButton(unsigned short axis) const;
+     * QSpinBox* getAxisTicsWidthSpin(unsigned short axis) const;
+     * QFontComboBox* getAxisTicsFontCombo(unsigned short axis) const;
+     * QDoubleSpinBox* getAxisTicsSizeSpin(unsigned short axis) const;
+     */
+
     QPushButton* getBGColButton(void) const;
+
+    // Grid.
     QColorDialog* getColDialog(void) const;
     QCheckBox* getCoordMouseCheck(void) const;
     QCheckBox* getGridCheck(void) const;
     QPushButton* getGridColButton(void) const;
     QComboBox* getGridStyleCombo(void) const;
     QSpinBox* getGridWidthSpin(void) const;
-    QCheckBox* getHorArrowCheck(void) const;
-    QGroupBox* getHorGroup(void) const;
-    QCheckBox* getHorLabelCheck(void) const;
-    QLineEdit* getHorLabelEdit(void) const;
+
     QToolBox* getToolBox(void) const;
-    QCheckBox* getVerArrowCheck(void) const;
-    QGroupBox* getVerGroup(void) const;
-    QCheckBox* getVerLabelCheck(void) const;
-    QLineEdit* getVerLabelEdit(void) const;
-    void saveSettings(QSettings *settings);
+
+    enum AxisType {
+        Hor,
+        Ver
+    };
 
 private:
     QColorDialog *m_colDialog;
